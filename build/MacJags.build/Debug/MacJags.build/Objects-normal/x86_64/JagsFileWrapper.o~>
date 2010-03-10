@@ -1,4 +1,0 @@
-In file included from /Users/aidan/Projects/MacJags/JagsFileWrapper.m:9:
-/Users/aidan/Projects/MacJags/JagsFileWrapper.h:20: error: expected identifier before ';' token
-/Users/aidan/Projects/MacJags/JagsFileWrapper.m:14: warning: incomplete implementation of class 'JagsFileWrapper'
-/Users/aidan/Projects/MacJags/JagsFileWrapper.m:14: warning: method definition for '-initWithWrapper:' not found
