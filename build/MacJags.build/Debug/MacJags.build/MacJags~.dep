@@ -1,0 +1,12 @@
+fdb4cc5a56e8224aa538395d9a099bc5 66e5b76b5c8871d4d80e94ee1b0c8e2a ffffffffffffffffffffffffffffffff 102 /Users/aidan/Projects/MacJags/build/Debug/MacJags.app
+448691f86afdc5799c5a3f315adae3c5 07968d6e59033d302ce9dd657ca65415 ffffffffffffffffffffffffffffffff 10904 /Users/aidan/Projects/MacJags/build/Debug/MacJags.app/Contents/MacOS/MacJags
+000000004b951a6d000000000002add6 6c63a7cec33d9a42440605557f17d100 ffffffffffffffffffffffffffffffff 33271 /Users/aidan/Projects/MacJags/build/Debug/MacJags.app/Contents/Resources/English.lproj/MainMenu.nib
+000000004b951a6d0000000000002935 d6326202bd06daec0f2083a52d238ec3 ffffffffffffffffffffffffffffffff 3544 /Users/aidan/Projects/MacJags/build/Debug/MacJags.app/Contents/Resources/English.lproj/MyDocument.nib
+000000004b951a6d000000000000002d 9aa458babf645fc67e886c9aa5ebdb34 ffffffffffffffffffffffffffffffff 92 /Users/aidan/Projects/MacJags/build/Debug/MacJags.app/Contents/Resources/English.lproj/InfoPlist.strings
+00000000000000000000000000000000 9e514dbaefdcdf06202531634ba82c2c ffffffffffffffffffffffffffffffff 436 /Users/aidan/Projects/MacJags/build/Debug/MacJags.app/Contents/Resources/English.lproj/Credits.rtf
+00000000000000000000000000000000 8cebda149d86e85a76b366e5be2a8bba ffffffffffffffffffffffffffffffff 8 /Users/aidan/Projects/MacJags/build/Debug/MacJags.app/Contents/PkgInfo
+00000000000000000000000000000000 8cebda149d86e85a76b366e5be2a8bba ffffffffffffffffffffffffffffffff 1312 /Users/aidan/Projects/MacJags/build/Debug/MacJags.app/Contents/Info.plist
+4c25323c75d27af57dec6e061e1858bd 348222557d7732db0f45dddebcd8eb2e ffffffffffffffffffffffffffffffff 4976 /Users/aidan/Projects/MacJags/build/MacJags.build/Debug/MacJags.build/Objects-normal/x86_64/main.o
+4c25323c3e4760987dec6e061e185093 7004b3ad5cbb3051931fe2efe602a5cb ffffffffffffffffffffffffffffffff 19380 /Users/aidan/Projects/MacJags/build/MacJags.build/Debug/MacJags.build/Objects-normal/x86_64/JagsDocument.o
+000000000b51b0050000000000000174 4c25323c75d27af57dec6e061e18592c ffffffffffffffffffffffffffffffff 54212368 /var/folders/D8/D8hb5oW2FmeODJAyh0YWYE+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/MacJags_Prefix-fedwhnlpzpkjbggahdklkdbqxgku/MacJags_Prefix.pch.gch
+ffffffffffffffffffffffffffffffff ffffffffffffffffffffffffffffffff ffffffffffffffffffffffffffffffff 0 /Users/aidan/Projects/MacJags/build/MacJags.build/Debug/MacJags.build/Objects-normal/x86_64/MyDocument.o
