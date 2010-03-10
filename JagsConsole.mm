@@ -32,7 +32,11 @@
 
 - (BOOL)checkModel:(NSURL *)fileName error:(NSError **)outError
 {
-	NSAssert([fileName isFileURL], @"fileName must be a local file");
+	if (![fileName isFileURL]) {
+		if (outError != NULL)
+			*outError = [NSError errorWithDomain:NSPOSIXErrorDomain code:ENOENT userInfo:nil];
+		return NO;
+	}
 	
 	std::FILE *file = fopen([[fileName path] UTF8String], "r");
 	if (file == NULL) {

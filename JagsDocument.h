@@ -17,6 +17,7 @@ extern NSString * const JagsDocument_DocumentActivateNotification;
 {
 	JagsConsole *console;
 	NSArray *variables;
+	NSMutableArray *monitors;
 	NSNumber *burnInNumber;
 	NSNumber *samplesNumber;
 	
@@ -33,6 +34,7 @@ extern NSString * const JagsDocument_DocumentActivateNotification;
 }
 
 @property (retain,readwrite) NSArray *variables;
+@property (retain,readwrite) NSMutableArray *monitors;
 @property (retain,readwrite) NSNumber *burnInNumber;
 @property (retain,readwrite) NSNumber *samplesNumber;
 

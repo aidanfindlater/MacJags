@@ -13,16 +13,19 @@ NSString * const JagsDocument_DocumentDeactivateNotification = @"JagsDocumentDea
 NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActivated";
 
 @implementation JagsDocument
-@synthesize variables, burnInNumber, samplesNumber;
+@synthesize variables, monitors, burnInNumber, samplesNumber;
 
 - (id)init
 {
     self = [super init];
     if (self) {
+		console = [[JagsConsole alloc] init];
+		
+		[self setVariables:[[NSArray alloc] init]];
+		
 		modelText = [[NSAttributedString alloc] init];
 		dataText = [[NSAttributedString alloc] init];
 		paramsText = [[NSAttributedString alloc] init];
-		console = [[JagsConsole alloc] init];
     }
     return self;
 }
@@ -38,6 +41,16 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 	[paramsText release];
 	
 	[super dealloc];
+}
+
+- (void)setVariables:(NSArray *)newVariables
+{
+	if (variables != newVariables) {
+		[variables release];
+		variables = [newVariables retain];
+	}
+	[monitors release];
+	monitors = [[NSMutableArray alloc] initWithCapacity:[variables count]];
 }
 
 - (NSString *)windowNibName

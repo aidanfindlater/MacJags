@@ -1,15 +1,15 @@
 //
-//  JagsAuxiliaryController.m
+//  JagsRunPanelController.m
 //  MacJags
 //
 //  Created by Aidan Findlater on 10-03-09.
 //  Copyright 2010 Aidan Findlater. All rights reserved.
 //
 
-#import "JagsAuxiliaryController.h"
+#import "JagsRunPanelController.h"
 
 
-@implementation JagsAuxiliaryController
+@implementation JagsRunPanelController
 @synthesize document;
 
 - (id)init
@@ -33,6 +33,7 @@
 - (void)dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[document release];
     [super dealloc];
 }
 
@@ -41,31 +42,23 @@
 	[document saveAndRun:sender];
 }
 
-- (IBAction)clearLog:(id)sender
-{
-	// Clear the log NSTableView
-}
-
 - (IBAction)showRunPanel:(id)sender
 {
 	[runPanel orderOut:sender];
 }
 
-- (IBAction)showLogPanel:(id)sender
-{
-	[logPanel orderOut:sender];
-}
-
 - (void)documentActivateNotification:(NSNotification *)notification
 {
+	NSLog(@"got doc %@", [notification object]);
+
     [self setDocument: [notification object]];
-	NSLog(@"New document: %@", document);
-	NSLog(@"Variables: %@", [document variables]);
 	[variableTableView reloadData];
 }
 
 - (void)documentDeactivateNotification:(NSNotification *)notification
 {
+	NSLog(@"lost doc");
+
     [self setDocument: nil];
 	[variableTableView reloadData];
 }
@@ -75,9 +68,15 @@
 	return [[document variables] count];
 }
 
-- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
+- (id)tableView:(NSTableView *)aTableView
+objectValueForTableColumn:(NSTableColumn *)aTableColumn
+			row:(NSInteger)rowIndex
 {
-	return [[document variables] objectAtIndex:rowIndex];
+	if ([[aTableColumn identifier] isEqual:@"names"]) {
+		return [[document variables] objectAtIndex:rowIndex];
+	}
+	
+	return nil;
 }
 
 
