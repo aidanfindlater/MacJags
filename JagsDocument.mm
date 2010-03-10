@@ -50,7 +50,11 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 		variables = [newVariables retain];
 	}
 	[monitors release];
-	monitors = [[NSMutableArray alloc] initWithCapacity:[variables count]];
+	monitors = [[NSMutableArray alloc] init];
+	for (NSString *varName in variables)
+		[monitors addObject:[NSNumber numberWithBool:NO]];
+	
+	NSLog(@"variables inited to %@\nmonitors inited to %@", variables, monitors);
 }
 
 - (NSString *)windowNibName

@@ -76,7 +76,23 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		return [[document variables] objectAtIndex:rowIndex];
 	}
 	
+	if ([[aTableColumn identifier] isEqual:@"monitors"]) {
+		return [[document monitors] objectAtIndex:rowIndex];
+	}
+	
 	return nil;
+}
+
+- (void)tableView:(NSTableView *)aTableView
+   setObjectValue:(id)anObject
+   forTableColumn:(NSTableColumn *)aTableColumn
+			  row:(NSInteger)rowIndex;
+{
+	if ([[aTableColumn identifier] isEqual:@"monitors"]) {
+		[[document monitors]
+		 replaceObjectAtIndex:rowIndex
+		 withObject:[NSNumber numberWithBool:[anObject boolValue]]];
+	}
 }
 
 
