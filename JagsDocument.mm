@@ -19,13 +19,34 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 {
     self = [super init];
     if (self) {
+		// Init the JAGS console-related stuff
 		console = [[JagsConsole alloc] init];
-		
 		[self setVariables:[[NSArray alloc] init]];
 		
-		modelText = [[NSAttributedString alloc] init];
-		dataText = [[NSAttributedString alloc] init];
+		// Init the text editing-related stuff
+		modelText  = [[NSAttributedString alloc] init];
+		dataText   = [[NSAttributedString alloc] init];
 		paramsText = [[NSAttributedString alloc] init];
+		burnInNumber  = [[NSNumber alloc] init];
+		samplesNumber = [[NSNumber alloc] init];
+		
+		// Init the file architecture
+		NSFileWrapper *modelWrapper = [[NSFileWrapper alloc] initRegularFileWithContents:[NSData data]];
+		NSFileWrapper *dataWrapper = [[NSFileWrapper alloc] initRegularFileWithContents:[NSData data]];
+		NSFileWrapper *paramsWrapper = [[NSFileWrapper alloc] initRegularFileWithContents:[NSData data]];
+		
+		NSMutableDictionary *fileWrappers = 
+		[NSMutableDictionary
+		 dictionaryWithObjects:
+		 [NSArray arrayWithObjects:modelWrapper,dataWrapper,paramsWrapper, nil] 
+		forKeys:
+		 [NSArray arrayWithObjects:@"model",@"data",@"params", nil]];
+		
+		documentWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:fileWrappers];
+		
+		[modelWrapper  release]; modelWrapper  = nil;
+		[dataWrapper   release]; dataWrapper   = nil;
+		[paramsWrapper release]; paramsWrapper = nil;
     }
     return self;
 }
@@ -40,6 +61,11 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 	[dataText release];
 	[paramsText release];
 	
+	[variables release];
+	[monitors release];
+	[burnInNumber release];
+	[samplesNumber release];
+	
 	[super dealloc];
 }
 
@@ -49,26 +75,22 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 		[variables release];
 		variables = [newVariables retain];
 	}
+	
 	[monitors release];
 	monitors = [[NSMutableArray alloc] init];
 	for (NSString *varName in variables)
 		[monitors addObject:[NSNumber numberWithBool:NO]];
-	
-	NSLog(@"variables inited to %@\nmonitors inited to %@", variables, monitors);
 }
 
 - (NSString *)windowNibName
 {
-    // Override returning the nib file name of the document
-    // If you need to use a subclass of NSWindowController or if your document supports multiple 
-	// NSWindowControllers, you should remove this method and override -makeWindowControllers instead.
     return @"JagsDocument";
 }
 
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController
 {
     [super windowControllerDidLoadNib:aController];
-	[statusTextField setStringValue:@"Ready"];
+	[self logStringValue:@"Document ready"];
 	[self reloadTextViews];
 }
 
@@ -77,7 +99,6 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 	NSAssert([typeName isEqual:@"MacJags Document"], @"File must be of type Jags");
 	
 	if (!documentWrapper) {
-		// If the given outError != NULL, ensure that you set *outError when returning nil.
 		if (outError != NULL)
 			*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
 		return nil;
@@ -90,9 +111,10 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 {
 	NSAssert([typeName isEqual:@"MacJags Document"], @"File must be of type Jags");
 	
-	[data retain];
-    [documentWrapper release];
-    documentWrapper = data;
+	if (documentWrapper != data) {
+		[documentWrapper release];
+		documentWrapper = [data retain];
+	}
 	
 	[modelText release];
 	[dataText release];
