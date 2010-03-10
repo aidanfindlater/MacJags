@@ -9,7 +9,11 @@
 #import "JagsDocument.h"
 #import "RDataParser.h"
 
+NSString * const JagsDocument_DocumentDeactivateNotification = @"JagsDocumentDeactivated";
+NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActivated";
+
 @implementation JagsDocument
+@synthesize variables, burnInNumber, samplesNumber;
 
 - (id)init
 {
@@ -96,11 +100,8 @@
 	NSString *message = @"";
 
 	if ([console checkModel:modelFile error:&error]) {
-		//	[variables setVariableNames:[[NSArray alloc] initWithArray:[console variableNames]]];
-		//	[variablesTableView setDataSource:variables];
-		//	[variablesTableView reloadData];
-		
 		[statusTextField setStringValue:@"Valid model"];
+		[self setVariables:[console variableNames]];
 	} else {
 		NSString *message = [NSString stringWithFormat:@"Invalid model: %@", [error localizedDescription]];
 		[statusTextField setStringValue:message];
@@ -109,6 +110,8 @@
 	
 	[error release];
 	[message release];
+	
+	[self postNotification:JagsDocument_DocumentActivateNotification];
 }
 
 - (IBAction)saveAndRun:(id)sender
@@ -186,5 +189,32 @@
 {
 	NSLog(@"%@", message);
 }
+
+- (void)postNotification:(NSString *)notificationName
+{
+    NSNotificationCenter *center;
+    center = [NSNotificationCenter defaultCenter];
+    
+    [center postNotificationName: notificationName
+						  object: self];
+}
+
+- (void)windowDidBecomeMain:(NSNotification *)notification
+{
+    [self postNotification:JagsDocument_DocumentActivateNotification];
+	
+}
+
+- (void)windowDidResignMain:(NSNotification *)notification
+{
+    [self postNotification:JagsDocument_DocumentDeactivateNotification];
+}
+
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+    [self postNotification:JagsDocument_DocumentDeactivateNotification];
+}
+
 
 @end

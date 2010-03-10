@@ -8,12 +8,17 @@
 
 
 #import <Cocoa/Cocoa.h>
-
 #import "JagsConsole.h"
+
+extern NSString * const JagsDocument_DocumentDeactivateNotification;
+extern NSString * const JagsDocument_DocumentActivateNotification;
 
 @interface JagsDocument : NSDocument
 {
 	JagsConsole *console;
+	NSArray *variables;
+	NSNumber *burnInNumber;
+	NSNumber *samplesNumber;
 	
 	NSFileWrapper *documentWrapper;
 	
@@ -27,6 +32,10 @@
 	IBOutlet NSTextField *statusTextField;
 }
 
+@property (retain,readwrite) NSArray *variables;
+@property (retain,readwrite) NSNumber *burnInNumber;
+@property (retain,readwrite) NSNumber *samplesNumber;
+
 // Saves then checks that the model is valid
 - (IBAction)saveAndCheckModel:(id)sender;
 
@@ -36,6 +45,7 @@
 // Helper methods
 - (void)reloadTextViews;
 - (void)logStringValue:(NSString *)message;
+- (void)postNotification:(NSString *)notificationName;
 
 // Methods for working with the NSFileWrapper
 - (NSString *)filenameForKey:(NSString *)key;

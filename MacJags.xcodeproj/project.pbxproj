@@ -14,6 +14,7 @@
 		8D15AC310486D014006FF6A4 /* JagsDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* JagsDocument.mm */; settings = {ATTRIBUTES = (); }; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+		DD05D4871147384C0078F3E0 /* JagsAuxiliaryController.mm in Sources */ = {isa = PBXBuildFile; fileRef = DD05D4861147384C0078F3E0 /* JagsAuxiliaryController.mm */; };
 		DDB9DB8F114554EA00A5B9CF /* JagsConsole.mm in Sources */ = {isa = PBXBuildFile; fileRef = DDB9DB8E114554EA00A5B9CF /* JagsConsole.mm */; };
 		DDB9DBEA11455C0300A5B9CF /* RDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB9DBE911455C0300A5B9CF /* RDataParser.m */; };
 /* End PBXBuildFile section */
@@ -33,6 +34,8 @@
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D15AC360486D014006FF6A4 /* MacJags-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MacJags-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* MacJags.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacJags.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD05D4851147384C0078F3E0 /* JagsAuxiliaryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JagsAuxiliaryController.h; sourceTree = "<group>"; };
+		DD05D4861147384C0078F3E0 /* JagsAuxiliaryController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JagsAuxiliaryController.mm; sourceTree = "<group>"; };
 		DDB9DB8D114554EA00A5B9CF /* JagsConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JagsConsole.h; sourceTree = "<group>"; };
 		DDB9DB8E114554EA00A5B9CF /* JagsConsole.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JagsConsole.mm; sourceTree = "<group>"; };
 		DDB9DBE811455C0300A5B9CF /* RDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDataParser.h; sourceTree = "<group>"; };
@@ -97,6 +100,8 @@
 				2A37F4ACFDCFA73011CA2CEA /* JagsDocument.mm */,
 				DDB9DB8D114554EA00A5B9CF /* JagsConsole.h */,
 				DDB9DB8E114554EA00A5B9CF /* JagsConsole.mm */,
+				DD05D4851147384C0078F3E0 /* JagsAuxiliaryController.h */,
+				DD05D4861147384C0078F3E0 /* JagsAuxiliaryController.mm */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -201,6 +206,7 @@
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
 				DDB9DB8F114554EA00A5B9CF /* JagsConsole.mm in Sources */,
 				DDB9DBEA11455C0300A5B9CF /* RDataParser.m in Sources */,
+				DD05D4871147384C0078F3E0 /* JagsAuxiliaryController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
