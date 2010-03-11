@@ -49,16 +49,12 @@
 
 - (void)documentActivateNotification:(NSNotification *)notification
 {
-	NSLog(@"got doc %@", [notification object]);
-
     [self setDocument: [notification object]];
 	[variableTableView reloadData];
 }
 
 - (void)documentDeactivateNotification:(NSNotification *)notification
 {
-	NSLog(@"lost doc");
-
     [self setDocument: nil];
 	[variableTableView reloadData];
 }
