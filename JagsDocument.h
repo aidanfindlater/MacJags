@@ -30,6 +30,9 @@ extern NSString * const JagsDocument_DocumentActivateNotification;
 	IBOutlet NSTextView *modelTextView;
 	IBOutlet NSTextView *dataTextView;
 	IBOutlet NSTextView *paramsTextView;
+	IBOutlet NSButton *checkModelButton;
+	IBOutlet NSButton *checkDataButton;
+	IBOutlet NSButton *checkParamsButton;
 	IBOutlet NSTextField *statusTextField;
 }
 

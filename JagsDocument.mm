@@ -187,7 +187,7 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 	else
 		[self logStringValue:@"Valid parameters"];
 	
-	if ([console compileWithData:data chainNumber:[NSNumber numberWithInt:1] genData:NO]) {
+	if ([console compileWithData:data chainNumber:[NSNumber numberWithInt:1] genData:YES]) {
 		[statusTextField setStringValue:@"Compile succeeded"];
 		[self logStringValue:@"Compile succeeded"];
 	} else {
