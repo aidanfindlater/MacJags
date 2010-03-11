@@ -136,20 +136,23 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 	NSURL *modelFile  = [self urlForKey:@"model"];
 	
 	NSError *error = nil;
-	NSString *message = @"";
+	NSString *message;
 
 	if ([console checkModel:modelFile error:&error]) {
-		[statusTextField setStringValue:@"Valid model"];
+		message = @"Valid model";
 		[self setVariables:[console variableNames]];
+		[checkModelButton setState:NSOnState];
+		[checkModelButton setTitle:@"Valid"];
 	} else {
-		NSString *message = [NSString stringWithFormat:@"Invalid model: %@", [error localizedDescription]];
-		[statusTextField setStringValue:message];
-		[self logStringValue:message];
+		message = [NSString stringWithFormat:@"Invalid model: %@", [error localizedDescription]];
+		[self setVariables:[NSArray array]];
+		[checkModelButton setState:NSOffState];
+		[checkModelButton setTitle:@"Check"];
 	}
 	
-	[error release];
-	[message release];
-	
+	[statusTextField setStringValue:message];
+	[self logStringValue:message];
+
 	[self postNotification:JagsDocument_DocumentActivateNotification];
 }
 
@@ -231,11 +234,9 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 
 - (void)postNotification:(NSString *)notificationName
 {
-    NSNotificationCenter *center;
-    center = [NSNotificationCenter defaultCenter];
-    
-    [center postNotificationName: notificationName
-						  object: self];
+    [[NSNotificationCenter defaultCenter]
+	 postNotificationName: notificationName
+	 object: self];
 }
 
 - (void)windowDidBecomeMain:(NSNotification *)notification
