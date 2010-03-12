@@ -20,8 +20,17 @@
 			 error:(NSError **)outError;
 
 - (BOOL)compileWithData:(NSDictionary *)dataTable
-			chainNumber:(NSNumber *)nChain
+			chainNumber:(NSUInteger)nChain
 				genData:(BOOL)genData;
+
+- (BOOL)setMonitor:(NSString *)name
+			 range:(NSRange)range
+  thinningInterval:(NSUInteger)thin
+	   monitorType:(NSString *)type;
+
+- (BOOL)clearMonitor:(NSString *)name
+			   range:(NSRange)range
+		 monitorType:(NSString *)type;
 
 - (NSArray *)variableNames;
 - (void)clearModel;

@@ -158,8 +158,6 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 
 - (IBAction)saveAndRun:(id)sender
 {
-	[self saveAndCheckModel:sender];
-	
 	NSURL *dataFile   = [self urlForKey:@"data"];
 	NSURL *paramsFile = [self urlForKey:@"params"];
 	
@@ -187,14 +185,27 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 	else
 		[self logStringValue:@"Valid parameters"];
 	
-	if ([console compileWithData:data chainNumber:[NSNumber numberWithInt:1] genData:YES]) {
+	if ([console compileWithData:data chainNumber:1 genData:YES]) {
 		[statusTextField setStringValue:@"Compile succeeded"];
 		[self logStringValue:@"Compile succeeded"];
 	} else {
 		[statusTextField setStringValue:@"Compile failed"];
 		[self logStringValue:@"Compile failed"];
 	}
-
+	
+	[self logStringValue:@"Setting monitors"];
+	for (NSUInteger i=0; i<[variables count]; i++) {
+		if ([[monitors objectAtIndex:i] isEqual:[NSNumber numberWithInt:1]]) {
+			[console setMonitor:[variables objectAtIndex:i]
+						  range:NSMakeRange(0, 2)
+			   thinningInterval:0
+					monitorType:@"trace"];
+		} else {
+			[console clearMonitor:[variables objectAtIndex:i]
+						  range:NSMakeRange(0, 2)
+					monitorType:@"trace"];
+		}
+	}
 }
 
 - (NSString *)filenameForKey:(NSString *)key

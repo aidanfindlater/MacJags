@@ -267,7 +267,10 @@
 				INFOPLIST_FILE = "MacJags-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
-				OTHER_LDFLAGS = "-ljags";
+				OTHER_LDFLAGS = (
+					"-ljrmath",
+					"-ljags",
+				);
 				PRODUCT_NAME = MacJags;
 			};
 			name = Debug;
@@ -288,7 +291,10 @@
 				INFOPLIST_FILE = "MacJags-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
-				OTHER_LDFLAGS = "-ljags";
+				OTHER_LDFLAGS = (
+					"-ljrmath",
+					"-ljags",
+				);
 				PRODUCT_NAME = MacJags;
 			};
 			name = Release;
