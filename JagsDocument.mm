@@ -170,12 +170,14 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 
 - (IBAction)saveAndRun:(id)sender
 {
+	// Load the files
 	NSURL *dataFile   = [self urlForKey:@"data"];
 	NSURL *paramsFile = [self urlForKey:@"params"];
 	
-	// Load the data
-	RDataParser *dataParser = [[RDataParser alloc] initWithURL:dataFile];
-	NSDictionary *data = [dataParser parseData];
+	
+	[self logStringValue:@"Loading data from file..."];
+	RDataParser *dataParser = [[RDataParser alloc] init];
+	NSDictionary *data = [dataParser parseURL:dataFile];
 	[dataParser release];
 	
 	if (!data)
@@ -185,9 +187,9 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 	else
 		[self logStringValue:@"Valid data"];
 	
-	// Load the params
-	RDataParser *paramsParser = [[RDataParser alloc] initWithURL:paramsFile];
-	NSDictionary *params = [paramsParser parseData];
+	[self logStringValue:@"Loading parameters from file..."];
+	RDataParser *paramsParser = [[RDataParser alloc] init];
+	NSDictionary *params = [paramsParser parseURL:paramsFile];
 	[paramsParser release];
 	
 	if (!params)

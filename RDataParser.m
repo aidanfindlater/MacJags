@@ -12,35 +12,18 @@
 @implementation RDataParser
 
 
-- (id)initWithString:(NSString *)anRDataString
+- (id)init
 {
 	self = [super init];
 	if (!self) return nil;
 	
-	rDataString = [anRDataString retain];
-	
 	NSMutableCharacterSet *endTextMutableCharacterSet = [[NSCharacterSet newlineCharacterSet] mutableCopy];
 	[endTextMutableCharacterSet addCharactersInString:@"<="];
-	endTextCharacterSet = endTextMutableCharacterSet;
+	endTextCharacterSet = [endTextMutableCharacterSet retain];
 	
 	NSMutableCharacterSet *symbolMutableCharacterSet = [[NSCharacterSet alphanumericCharacterSet] mutableCopy];
 	[symbolMutableCharacterSet addCharactersInString:@"_."];
-	symbolCharacterSet = symbolMutableCharacterSet;
-	
-	return self;
-}
-
-- (id)initWithURL:(NSURL *)aURL
-{
-	NSError *error;
-	self = [self initWithString:[NSString stringWithContentsOfURL:aURL encoding:NSUTF8StringEncoding error:&error]];
-	
-	if (error) {
-		NSLog(@"RDataParser could not read file: %@", error);
-		return nil;
-	}
-	
-	if (!self) return nil;
+	symbolCharacterSet = [symbolMutableCharacterSet retain];
 	
 	return self;
 }
@@ -54,10 +37,10 @@
 }
 
 
-- (NSDictionary *)parseData
+- (NSDictionary *)parseString:(NSString *)aString
 {
-	scanner = [[NSScanner alloc] initWithString:rDataString];
-	[scanner setCharactersToBeSkipped:[[NSCharacterSet whitespaceAndNewlineCharacterSet] autorelease]];
+	scanner = [[NSScanner alloc] initWithString:aString];
+	[scanner setCharactersToBeSkipped:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	
 	NSMutableDictionary *results = [NSMutableDictionary dictionary];
 	
@@ -86,6 +69,11 @@
 	scanner = nil;
 	
 	return results;	
+}
+
+- (NSDictionary *)parseURL:(NSURL *)aURL
+{
+	return [self parseString:[NSString stringWithContentsOfURL:aURL encoding:NSUTF8StringEncoding error:nil]];
 }
 
 - (NSDictionary *)parseAssignmentExpression

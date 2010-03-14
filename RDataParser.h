@@ -16,10 +16,9 @@
 	NSCharacterSet *symbolCharacterSet;
 }
 
-- (id)initWithString:(NSString *)anRDataString;
-- (id)initWithURL:(NSURL *)aURL;
+- (NSDictionary *)parseString:(NSString *)aString;
+- (NSDictionary *)parseURL:(NSURL *)aURL;
 
-- (NSDictionary *)parseData;
 - (NSDictionary *)parseAssignmentExpression;
 - (NSString *)parseVariableName;
 - (NSString *)parseAssignmentToken;
