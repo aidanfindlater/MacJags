@@ -23,6 +23,15 @@
 			chainNumber:(NSUInteger)nChain
 				genData:(BOOL)genData;
 
+- (BOOL)setParameters:(NSDictionary *)paramTable
+				chain:(NSUInteger)chainNumber;
+
+- (BOOL)setRNGName:(NSString *)name
+			 chain:(NSUInteger)chainNumber;
+
+- (BOOL)initialize;
+- (BOOL)update:(NSUInteger)numIterations;
+
 - (BOOL)setMonitor:(NSString *)name
 			 range:(NSRange)range
   thinningInterval:(NSUInteger)thin
@@ -32,7 +41,24 @@
 			   range:(NSRange)range
 		 monitorType:(NSString *)type;
 
+- (BOOL)dumpState:(NSDictionary **)dataTable
+		  rngName:(NSString **)name
+		 dumpType:(DumpType)type
+			chain:(NSUInteger)chainNumber;
+
+- (NSUInteger)iterationNumber;
 - (NSArray *)variableNames;
+
+- (NSUInteger)numChains;
+
+- (BOOL)dumpMonitors:(NSDictionary **)dataTable
+				type:(NSString **)type
+				flat:(BOOL)flat;
+
+- (BOOL)dumpSamplers:(NSArray **)samplerList;
+- (BOOL)setAdaptive:(BOOL)isAdaptive;
+- (BOOL)adaptive;
+
 - (void)clearModel;
 
 + (void)loadDLLs;
