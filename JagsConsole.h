@@ -35,4 +35,9 @@
 - (NSArray *)variableNames;
 - (void)clearModel;
 
++ (void)loadDLLs;
++ (BOOL)loadModule:(NSString *)moduleName;
++ (BOOL)unloadModule:(NSString *)moduleName;
++ (NSArray *)loadedModules;
+
 @end

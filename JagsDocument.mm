@@ -21,6 +21,18 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
     if (self) {
 		// Init the JAGS console-related stuff
 		console = [[JagsConsole alloc] init];
+		
+		// Load the default modules
+		if ([JagsConsole loadModule:@"basemod"])
+			[self logStringValue:@"Loaded module 'basemod'"];
+		else
+			[self logStringValue:@"Could not load module 'basemod'"];
+		
+		if ([JagsConsole loadModule:@"bugs"])
+			[self logStringValue:@"Loaded module 'bugs'"];
+		else
+			[self logStringValue:@"Could not load module 'bugs'"];
+		
 		[self setVariables:[[NSArray alloc] init]];
 		
 		// Init the text editing-related stuff

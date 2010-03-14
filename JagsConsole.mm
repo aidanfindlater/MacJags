@@ -7,9 +7,11 @@
 //
 
 #import "JagsConsole.h"
+#import <dlfcn.h>
 
 #define id Id
 #import <JAGS/compiler/ParseTree.h>
+#import <JAGS/Module.h>
 #import <JAGS/Console.h>
 #import <string>
 #import <sstream>
@@ -19,13 +21,17 @@ using std::map;
 using std::string;
 using std::vector;
 using std::pair;
+using std::list;
 
 @implementation JagsConsole
 
 - (id)init
 {
 	self = [super init];
-	console = new Console(std::cout, std::cerr);
+	if (self) {
+		console = new Console(std::cout, std::cerr);
+		[JagsConsole loadDLLs];
+	}
 	return self;
 }
 
@@ -136,5 +142,47 @@ using std::pair;
 	console->clearModel();
 }
 
++ (BOOL)loadModule:(NSString *)moduleName
+{
+	[JagsConsole unloadModule:moduleName];
+	return (BOOL)Console::loadModule([moduleName UTF8String]);
+}
+
++ (BOOL)unloadModule:(NSString *)moduleName
+{
+	return (BOOL)Console::unloadModule([moduleName UTF8String]);
+}
+
++ (NSArray *)loadedModules
+{
+	std::list<Module *> c_modules = Console::loadedModules();
+	NSMutableArray *modules = [[NSMutableArray alloc] init];
+	
+	list<Module *>::const_iterator p;
+    for (p = c_modules.begin(); p != c_modules.end(); ++p) {
+		[modules addObject:
+		 [NSString stringWithUTF8String:(*p)->name().c_str()]];
+	}
+	
+	return modules;
+}
+
+// Get the pluggable modules ready for loading
+static BOOL loadedDLLs;
++ (void)loadDLLs
+{
+	if (loadedDLLs) return;
+	
+	NSString *modulesPath = @"/usr/local/lib/JAGS/modules-2.0.0/";
+	NSDirectoryEnumerator *modEnumerator = [[NSFileManager defaultManager]
+											enumeratorAtPath:modulesPath];
+	for (NSString *mod in modEnumerator) {
+		if ([[mod pathExtension] isEqualToString:@"so"]) {
+			dlopen([[NSString stringWithFormat:@"%@%@",modulesPath,mod] UTF8String], RTLD_LAZY);
+		}
+	}
+	
+	loadedDLLs = NO;
+}	
 
 @end
