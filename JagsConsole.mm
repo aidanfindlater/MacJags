@@ -12,6 +12,8 @@
 #define id Id
 #import <JAGS/compiler/ParseTree.h>
 #import <JAGS/Module.h>
+#import <JAGS/model/BUGSModel.h>
+#import <JAGS/model/Monitor.h>
 #import <JAGS/Console.h>
 #import <string>
 #import <sstream>
@@ -97,31 +99,84 @@ using std::list;
 	return (BOOL)ret;
 }
 
+
+- (BOOL)initialize
+{
+	return (BOOL)console->initialize();
+}
+
+- (BOOL)update:(NSUInteger)numIterations
+{
+	return (BOOL)console->update(numIterations);
+}
+
 - (BOOL)setMonitor:(NSString *)name
-			 range:(NSRange)range
   thinningInterval:(NSUInteger)thin
 	   monitorType:(NSString *)type
 {
-	string c_name = [name UTF8String];
-	Range c_range;
-	string c_type = [type UTF8String];
-	
-	bool ret = console->setMonitor(c_name, c_range, thin, c_type);
-	
-	return (BOOL)ret;
+	return (BOOL)console->setMonitor([name UTF8String], Range(), thin, [type UTF8String]);
 }
 
 - (BOOL)clearMonitor:(NSString *)name
-			   range:(NSRange)range
 		 monitorType:(NSString *)type;
 {
 	string c_name = [name UTF8String];
-	Range c_range;
 	string c_type = [type UTF8String];
 	
-	bool ret = console->clearMonitor(c_name, c_range, c_type);
+	return (BOOL)console->clearMonitor(c_name, Range(), c_type);
+}
+
+- (void)clearAllMonitors
+{
+	const BUGSModel *model = console->model();
+	const list<MonitorControl> monitors = model->monitors();
+	for (list<MonitorControl>::const_iterator p = monitors.begin(); p != monitors.end(); ++p) {
+		console->clearMonitor(p->monitor()->name(), Range(), "trace");
+	}
+}
+
+- (NSDictionary *)dumpMonitors
+{
+	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+	for (list<MonitorControl>::const_iterator p = console->model()->monitors().begin();
+		 p != console->model()->monitors().end(); ++p) {
+		vector<double> const &v = p->monitor()->dump().value();
+		NSMutableArray *arr = [NSMutableArray arrayWithCapacity:v.size()];
+		for (vector<double>::const_iterator i = v.begin(); i != v.end(); ++i) {
+			[arr addObject:[NSNumber numberWithDouble:*i]];
+		}
+		[dict setObject:arr forKey:[NSString stringWithUTF8String:p->monitor()->name().c_str()]];
+	}
+	return dict;
+}
+
+- (BOOL)dumpState:(NSDictionary **)dataTable
+		  rngName:(NSString **)name
+		 dumpType:(DumpType)type
+			chain:(NSUInteger)chainNumber
+{
+	map<string,SArray> c_dataTable;
+	string c_name;
 	
-	return (BOOL)ret;
+	if (!console->dumpState(c_dataTable, c_name, type, chainNumber))
+		return NO;
+	
+	NSMutableDictionary *newDataTable = [NSMutableDictionary dictionary];
+	
+	for (map<string,SArray>::iterator p = c_dataTable.begin(); p !=c_dataTable.end(); ++p) {
+		vector<double> c_data = (*p).second.value();
+		NSMutableArray *data = [NSMutableArray arrayWithCapacity:c_data.size()];
+		for (vector<double>::iterator i = c_data.begin(); i != c_data.end(); ++i) {
+			[data addObject:[NSNumber numberWithDouble:(*i)]];
+		}
+		[newDataTable
+		 setObject:data forKey:[NSString stringWithUTF8String:(*p).first.c_str()]];
+	}
+	
+	*dataTable = [NSDictionary dictionaryWithDictionary:newDataTable];
+	*name = [NSString stringWithUTF8String:c_name.c_str()];
+	
+	return YES;
 }
 
 - (NSArray *)variableNames
@@ -183,6 +238,7 @@ static BOOL loadedDLLs;
 	}
 	
 	loadedDLLs = NO;
-}	
+}
 
 @end
+

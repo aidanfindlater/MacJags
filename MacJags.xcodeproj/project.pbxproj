@@ -86,6 +86,7 @@
 				2A37F4ABFDCFA73011CA2CEA /* Classes */,
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
+				DD6864B7114F40AA00CD5917 /* Test Cases */,
 				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
 				19C28FB0FE9D524F11CA2CBB /* Products */,
 			);
@@ -134,6 +135,13 @@
 				1058C7A8FEA54F5311CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DD6864B7114F40AA00CD5917 /* Test Cases */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Test Cases";
 			sourceTree = "<group>";
 		};
 		DDB9DBE711455BEE00A5B9CF /* File Parsers */ = {

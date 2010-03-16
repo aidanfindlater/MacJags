@@ -16,6 +16,7 @@ extern NSString * const JagsDocument_DocumentActivateNotification;
 @interface JagsDocument : NSDocument
 {
 	JagsConsole *console;
+	
 	NSArray *variables;
 	NSMutableArray *monitors;
 	NSNumber *burnInNumber;
@@ -33,6 +34,7 @@ extern NSString * const JagsDocument_DocumentActivateNotification;
 	IBOutlet NSButton *checkModelButton;
 	IBOutlet NSButton *checkDataButton;
 	IBOutlet NSButton *checkParamsButton;
+	
 	IBOutlet NSTextField *statusTextField;
 }
 

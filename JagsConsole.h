@@ -33,13 +33,13 @@
 - (BOOL)update:(NSUInteger)numIterations;
 
 - (BOOL)setMonitor:(NSString *)name
-			 range:(NSRange)range
   thinningInterval:(NSUInteger)thin
 	   monitorType:(NSString *)type;
 
 - (BOOL)clearMonitor:(NSString *)name
-			   range:(NSRange)range
 		 monitorType:(NSString *)type;
+
+- (void)clearAllMonitors;
 
 - (BOOL)dumpState:(NSDictionary **)dataTable
 		  rngName:(NSString **)name
@@ -51,9 +51,7 @@
 
 - (NSUInteger)numChains;
 
-- (BOOL)dumpMonitors:(NSDictionary **)dataTable
-				type:(NSString **)type
-				flat:(BOOL)flat;
+- (NSDictionary *)dumpMonitors;
 
 - (BOOL)dumpSamplers:(NSArray **)samplerList;
 - (BOOL)setAdaptive:(BOOL)isAdaptive;

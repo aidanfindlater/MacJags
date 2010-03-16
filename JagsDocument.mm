@@ -175,50 +175,91 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 	NSURL *paramsFile = [self urlForKey:@"params"];
 	
 	
+	[self logStringValue:@"Clearing the model..."];
+	[console clearModel];
+	
+	
 	[self logStringValue:@"Loading data from file..."];
 	RDataParser *dataParser = [[RDataParser alloc] init];
 	NSDictionary *data = [dataParser parseURL:dataFile];
 	[dataParser release];
 	
-	if (!data)
-		[self logStringValue:@"Invalid data"];
-	else if ([data count] == 0)
-		[self logStringValue:@"Missing data"];
-	else
-		[self logStringValue:@"Valid data"];
+	if (!data) {
+		[self logStringValue:@"Invalid data."];
+		return;
+	} else if ([data count] == 0) {
+		[self logStringValue:@"Missing data."];
+		return;
+	} else {
+		[self logStringValue:@"Valid data."];
+	}
+	
 	
 	[self logStringValue:@"Loading parameters from file..."];
 	RDataParser *paramsParser = [[RDataParser alloc] init];
 	NSDictionary *params = [paramsParser parseURL:paramsFile];
 	[paramsParser release];
 	
-	if (!params)
-		[self logStringValue:@"Invalid parameters"];
-	else if ([params count] == 0)
-		[self logStringValue:@"Missing parameters"];
-	else
-		[self logStringValue:@"Valid parameters"];
-	
-	if ([console compileWithData:data chainNumber:1 genData:YES]) {
-		[statusTextField setStringValue:@"Compile succeeded"];
-		[self logStringValue:@"Compile succeeded"];
+	if (!params) {
+		[self logStringValue:@"Invalid parameters."];
+	} else if ([params count] == 0) {
+		[self logStringValue:@"Missing parameters."];
 	} else {
-		[statusTextField setStringValue:@"Compile failed"];
-		[self logStringValue:@"Compile failed"];
+		[self logStringValue:@"Valid parameters."];
 	}
 	
-	[self logStringValue:@"Setting monitors"];
+	if ([console compileWithData:data chainNumber:1 genData:YES]) {
+		[self logStringValue:@"Compiled model."];
+	} else {
+		[self logStringValue:@"Could not compile model."];
+		return;
+	}
+	
+	
+	[self logStringValue:@"Initializing model..."];
+	if ([console initialize]) {
+		[self logStringValue:@"Initialized model."];
+	} else {
+		[self logStringValue:@"Could not initialize model."];
+		return;
+	}
+	
+	
+	[self logStringValue:@"Running burn-in..."];
+	if ([console update:2000]) {
+		[self logStringValue:@"Burn-in complete."];
+	} else {
+		[self logStringValue:@"Could not run burn-in."];
+		return;
+	}
+	
+	
+	[self logStringValue:@"Setting monitors..."];
 	for (NSUInteger i=0; i<[variables count]; i++) {
 		if ([[monitors objectAtIndex:i] isEqual:[NSNumber numberWithInt:1]]) {
 			[console setMonitor:[variables objectAtIndex:i]
-						  range:NSMakeRange(0, 2)
-			   thinningInterval:0
+			   thinningInterval:1
 					monitorType:@"trace"];
-		} else {
-			[console clearMonitor:[variables objectAtIndex:i]
-						  range:NSMakeRange(0, 2)
-					monitorType:@"trace"];
+			[self logStringValue:[NSString stringWithFormat:@"Added monitor for %@",[variables objectAtIndex:i]]];
 		}
+	}
+	
+	[self logStringValue:@"Running model..."];
+	if ([console update:20000]) {
+		[self logStringValue:@"Model run complete."];
+	} else {
+		[self logStringValue:@"Could not run model."];
+		return;
+	}
+	
+	
+	[self logStringValue:@"Loading results..."];
+	NSDictionary *results = [console dumpMonitors];
+	
+	if (results) {
+		NSLog(@"results were %@", results);
+	} else {
+		[self logStringValue:@"Could not load results"];
 	}
 }
 
@@ -254,6 +295,7 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 
 - (void)logStringValue:(NSString *)message
 {
+	[statusTextField setStringValue:message];
 	NSLog(@"%@", message);
 }
 
