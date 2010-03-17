@@ -7,6 +7,7 @@
 //
 
 #import "JagsDocument.h"
+#import "ResultsDocument.h"
 #import "RDataParser.h"
 
 NSString * const JagsDocument_DocumentDeactivateNotification = @"JagsDocumentDeactivated";
@@ -244,6 +245,7 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 		}
 	}
 	
+	
 	[self logStringValue:@"Running model..."];
 	if ([console update:20000]) {
 		[self logStringValue:@"Model run complete."];
@@ -255,12 +257,20 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 	
 	[self logStringValue:@"Loading results..."];
 	NSDictionary *results = [console dumpMonitors];
-	
 	if (results) {
-		NSLog(@"results were %@", results);
+		NSLog(@"Results loaded.");
 	} else {
-		[self logStringValue:@"Could not load results"];
+		[self logStringValue:@"Could not load results."];
 	}
+	
+	NSError *err;
+	ResultsDocument *resDoc = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"MacJags Results" error:&err];
+	if (err)
+		NSLog(@"Couldn't make results window: %@", err);
+	[resDoc makeWindowControllers];
+	[resDoc showWindows];
+	[resDoc setResults:results];
+	[resDoc retain];
 }
 
 - (NSString *)filenameForKey:(NSString *)key

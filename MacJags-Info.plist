@@ -7,6 +7,8 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 			<key>LSTypeIsPackage</key>
 			<true/>
 			<key>CFBundleTypeExtensions</key>
@@ -25,6 +27,16 @@
 			<string>Editor</string>
 			<key>NSDocumentClass</key>
 			<string>JagsDocument</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>MacJags Results</string>
+			<key>NSDocumentClass</key>
+			<string>ResultsDocument</string>
+			<key>LSHandlerRank</key>
+			<string>None</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>

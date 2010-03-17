@@ -15,6 +15,8 @@
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		DD05D4871147384C0078F3E0 /* JagsRunPanelController.mm in Sources */ = {isa = PBXBuildFile; fileRef = DD05D4861147384C0078F3E0 /* JagsRunPanelController.mm */; };
+		DD68657B11504EF800CD5917 /* ResultsDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD68657A11504EF700CD5917 /* ResultsDocument.xib */; };
+		DD686580115050FC00CD5917 /* ResultsDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = DD68657F115050FC00CD5917 /* ResultsDocument.m */; };
 		DDB9DB8F114554EA00A5B9CF /* JagsConsole.mm in Sources */ = {isa = PBXBuildFile; fileRef = DDB9DB8E114554EA00A5B9CF /* JagsConsole.mm */; };
 		DDB9DBEA11455C0300A5B9CF /* RDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB9DBE911455C0300A5B9CF /* RDataParser.m */; };
 /* End PBXBuildFile section */
@@ -36,6 +38,9 @@
 		8D15AC370486D014006FF6A4 /* MacJags.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacJags.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD05D4851147384C0078F3E0 /* JagsRunPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JagsRunPanelController.h; sourceTree = "<group>"; };
 		DD05D4861147384C0078F3E0 /* JagsRunPanelController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JagsRunPanelController.mm; sourceTree = "<group>"; };
+		DD68657A11504EF700CD5917 /* ResultsDocument.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultsDocument.xib; sourceTree = "<group>"; };
+		DD68657E115050FC00CD5917 /* ResultsDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsDocument.h; sourceTree = "<group>"; };
+		DD68657F115050FC00CD5917 /* ResultsDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsDocument.m; sourceTree = "<group>"; };
 		DDB9DB8D114554EA00A5B9CF /* JagsConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JagsConsole.h; sourceTree = "<group>"; };
 		DDB9DB8E114554EA00A5B9CF /* JagsConsole.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JagsConsole.mm; sourceTree = "<group>"; };
 		DDB9DBE811455C0300A5B9CF /* RDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDataParser.h; sourceTree = "<group>"; };
@@ -103,6 +108,8 @@
 				DDB9DB8E114554EA00A5B9CF /* JagsConsole.mm */,
 				DD05D4851147384C0078F3E0 /* JagsRunPanelController.h */,
 				DD05D4861147384C0078F3E0 /* JagsRunPanelController.mm */,
+				DD68657E115050FC00CD5917 /* ResultsDocument.h */,
+				DD68657F115050FC00CD5917 /* ResultsDocument.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -124,6 +131,7 @@
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
 				1DDD58280DA1D0D100B32029 /* JagsDocument.xib */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
+				DD68657A11504EF700CD5917 /* ResultsDocument.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -200,6 +208,7 @@
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
 				1DDD582C0DA1D0D100B32029 /* JagsDocument.xib in Resources */,
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
+				DD68657B11504EF800CD5917 /* ResultsDocument.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,6 +224,7 @@
 				DDB9DB8F114554EA00A5B9CF /* JagsConsole.mm in Sources */,
 				DDB9DBEA11455C0300A5B9CF /* RDataParser.m in Sources */,
 				DD05D4871147384C0078F3E0 /* JagsRunPanelController.mm in Sources */,
+				DD686580115050FC00CD5917 /* ResultsDocument.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
