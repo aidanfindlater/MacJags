@@ -107,6 +107,7 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 	[self reloadTextViews];
 }
 
+// Returns file as an NSTextWrapper
 - (NSFileWrapper *)fileWrapperOfType:(NSString *)typeName error:(NSError **)outError
 {
 	NSAssert([typeName isEqual:@"MacJags Document"], @"File must be of type Jags");
@@ -132,6 +133,7 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 	return documentWrapper;
 }
 
+// Loads file from an NSTextWrapper
 - (BOOL)readFromFileWrapper:(NSFileWrapper *)data ofType:(NSString *)typeName error:(NSError **)outError
 {
 	NSAssert([typeName isEqual:@"MacJags Document"], @"File must be of type Jags");
@@ -156,6 +158,7 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
     return YES;
 }
 
+// Checks the model definition
 - (IBAction)saveAndCheckModel:(id)sender
 {
 	NSURL *modelFile  = [self urlForKey:@"model"];
@@ -181,6 +184,7 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 	[self postNotification:JagsDocument_DocumentActivateNotification];
 }
 
+// Runs the model with data and parameters
 - (IBAction)saveAndRun:(id)sender
 {
 	// Load the files
@@ -284,6 +288,21 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 	[resDoc setResults:results];
 	[resDoc retain];
 }
+
+// Allows JagsDocument to act as delegate to the NSTextViews
+// Resets the "Check" buttons on edit
+- (void)textDidChange:(NSNotification *)aNotification
+{
+	[checkModelButton setState:NSOffState];
+	[checkModelButton setTitle:@"Check"];
+	[checkDataButton setState:NSOffState];
+	[checkDataButton setTitle:@"Check"];
+	[checkParamsButton setState:NSOffState];
+	[checkParamsButton setTitle:@"Check"];
+}
+
+
+// Helper methods for dealing with reading and writing files
 
 - (NSString *)filenameForKey:(NSString *)key
 {
