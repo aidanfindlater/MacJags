@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="100022"/>
+			<integer value="100045"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -202,9 +202,9 @@
 																</object>
 																<nil key="NSDefaultParagraphStyle"/>
 															</object>
-															<int key="NSTVFlags">6</int>
+															<int key="NSTVFlags">7</int>
 															<string key="NSMaxSize">{562, 1e+07}</string>
-															<string key="NSMinize">{223, 0}</string>
+															<string key="NSMinize">{339, 0}</string>
 															<nil key="NSDelegate"/>
 														</object>
 													</object>
@@ -413,7 +413,7 @@
 																				</object>
 																				<nil key="NSDefaultParagraphStyle"/>
 																			</object>
-																			<int key="NSTVFlags">6</int>
+																			<int key="NSTVFlags">7</int>
 																			<string key="NSMaxSize">{565, 1e+07}</string>
 																			<string key="NSMinize">{223, 0}</string>
 																			<nil key="NSDelegate"/>
@@ -434,6 +434,7 @@
 																	<reference key="NSSuperview" ref="749187843"/>
 																	<reference key="NSTarget" ref="749187843"/>
 																	<string key="NSAction">_doScroller:</string>
+																	<double key="NSCurValue">1</double>
 																	<double key="NSPercent">0.99248120300751874</double>
 																</object>
 																<object class="NSScroller" id="831592471">
@@ -444,7 +445,7 @@
 																	<int key="NSsFlags">1</int>
 																	<reference key="NSTarget" ref="749187843"/>
 																	<string key="NSAction">_doScroller:</string>
-																	<double key="NSCurValue">1</double>
+																	<double key="NSCurValue">0.60218978102189791</double>
 																	<double key="NSPercent">0.94565218687057495</double>
 																</object>
 															</object>
@@ -595,7 +596,7 @@
 																				</object>
 																				<nil key="NSDefaultParagraphStyle"/>
 																			</object>
-																			<int key="NSTVFlags">6</int>
+																			<int key="NSTVFlags">7</int>
 																			<string key="NSMaxSize">{565, 1e+07}</string>
 																			<string key="NSMinize">{223, 0}</string>
 																			<nil key="NSDelegate"/>
