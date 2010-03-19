@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="5"/>
+			<integer value="100022"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -69,7 +69,7 @@
 											<object class="NSButtonCell" key="NSCell" id="437967445">
 												<int key="NSCellFlags">67239424</int>
 												<int key="NSCellFlags2">134217728</int>
-												<string key="NSContents">Check</string>
+												<string key="NSContents">Load</string>
 												<object class="NSFont" key="NSSupport" id="918128929">
 													<string key="NSName">LucidaGrande-Bold</string>
 													<double key="NSSize">9</double>
@@ -309,7 +309,7 @@
 															<object class="NSButtonCell" key="NSCell" id="530347695">
 																<int key="NSCellFlags">67239424</int>
 																<int key="NSCellFlags2">134217728</int>
-																<string key="NSContents">Check</string>
+																<string key="NSContents">Load</string>
 																<reference key="NSSupport" ref="918128929"/>
 																<reference key="NSControlView" ref="916096999"/>
 																<int key="NSButtonFlags">914637055</int>
@@ -491,7 +491,7 @@
 															<object class="NSButtonCell" key="NSCell" id="387003223">
 																<int key="NSCellFlags">67239424</int>
 																<int key="NSCellFlags2">134217728</int>
-																<string key="NSContents">Check</string>
+																<string key="NSContents">Load</string>
 																<reference key="NSSupport" ref="918128929"/>
 																<reference key="NSControlView" ref="197071691"/>
 																<int key="NSButtonFlags">914637055</int>
@@ -1157,6 +1157,7 @@
 					<string>100048.IBPluginDependency</string>
 					<string>100049.IBPluginDependency</string>
 					<string>100050.IBPluginDependency</string>
+					<string>100072.IBAttributePlaceholdersKey</string>
 					<string>100072.IBPluginDependency</string>
 					<string>100073.IBPluginDependency</string>
 					<string>100079.IBPluginDependency</string>
@@ -1204,6 +1205,14 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSMutableDictionary">
+						<string key="NS.key.0">ToolTip</string>
+						<object class="IBToolTipAttribute" key="NS.object.0">
+							<string key="name">ToolTip</string>
+							<reference key="object" ref="75650183"/>
+							<string key="toolTip">Saves and loads the model</string>
+						</object>
+					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>

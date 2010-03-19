@@ -16,14 +16,13 @@ extern NSString * const JagsDocument_DocumentActivateNotification;
 @interface JagsDocument : NSDocument
 {
 	JagsConsole *console;
+	BOOL valid;
 	
 	NSArray *variables;
 	NSMutableArray *monitors;
 	NSNumber *burnInNumber;
 	NSNumber *samplesNumber;
-	
-	NSFileWrapper *documentWrapper;
-	
+		
 	NSAttributedString *modelText;
 	NSAttributedString *dataText;
 	NSAttributedString *paramsText;
@@ -55,7 +54,6 @@ extern NSString * const JagsDocument_DocumentActivateNotification;
 - (void)postNotification:(NSString *)notificationName;
 
 // Methods for working with the NSFileWrapper
-- (NSString *)filenameForKey:(NSString *)key;
 - (NSURL *)urlForKey:(NSString *)key;
 - (NSData *)dataForKey:(NSString *)key;
 - (NSString *)stringForKey:(NSString *)key;

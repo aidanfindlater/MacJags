@@ -23,6 +23,8 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 		// Init the JAGS console-related stuff
 		console = [[JagsConsole alloc] init];
 		
+		valid = NO;
+		
 		// Load the default modules
 		if ([JagsConsole loadModule:@"basemod"])
 			[self logStringValue:@"Loaded module 'basemod'"];
@@ -42,34 +44,14 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 		paramsText = [[NSAttributedString alloc] init];
 		burnInNumber  = [[NSNumber alloc] init];
 		samplesNumber = [[NSNumber alloc] init];
-		
-		// Init the file architecture
-		NSFileWrapper *modelWrapper = [[NSFileWrapper alloc] initRegularFileWithContents:[NSData data]];
-		NSFileWrapper *dataWrapper = [[NSFileWrapper alloc] initRegularFileWithContents:[NSData data]];
-		NSFileWrapper *paramsWrapper = [[NSFileWrapper alloc] initRegularFileWithContents:[NSData data]];
-		
-		NSMutableDictionary *fileWrappers = 
-		[NSMutableDictionary
-		 dictionaryWithObjects:
-		 [NSArray arrayWithObjects:modelWrapper,dataWrapper,paramsWrapper, nil] 
-		forKeys:
-		 [NSArray arrayWithObjects:@"model",@"data",@"params", nil]];
-		
-		documentWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:fileWrappers];
-		
-		[modelWrapper  release]; modelWrapper  = nil;
-		[dataWrapper   release]; dataWrapper   = nil;
-		[paramsWrapper release]; paramsWrapper = nil;
-    }
+	}
     return self;
 }
 
 - (void)dealloc
 {
 	[console release];
-	
-	[documentWrapper release];
-	
+		
 	[modelText release];
 	[dataText release];
 	[paramsText release];
@@ -103,6 +85,7 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController
 {
     [super windowControllerDidLoadNib:aController];
+	
 	[self logStringValue:@"Document ready"];
 	[self reloadTextViews];
 }
@@ -111,13 +94,7 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 - (NSFileWrapper *)fileWrapperOfType:(NSString *)typeName error:(NSError **)outError
 {
 	NSAssert([typeName isEqual:@"MacJags Document"], @"File must be of type Jags");
-	
-	if (!documentWrapper) {
-		if (outError != NULL)
-			*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
-		return nil;
-	}
-	
+		
 	NSFileWrapper *modelWrapper = [[NSFileWrapper alloc] initRegularFileWithContents:[NSData dataWithBytes:[[[modelTextView textStorage] string] UTF8String] length:[[[modelTextView textStorage] string] length]]];
 	NSFileWrapper *dataWrapper = [[NSFileWrapper alloc] initRegularFileWithContents:[NSData dataWithBytes:[[[dataTextView textStorage] string] UTF8String] length:[[[dataTextView textStorage] string] length]]];
 	NSFileWrapper *paramsWrapper = [[NSFileWrapper alloc] initRegularFileWithContents:[NSData dataWithBytes:[[[paramsTextView textStorage] string] UTF8String] length:[[[paramsTextView textStorage] string] length]]];
@@ -127,21 +104,14 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 									 dataWrapper, @"data",
 									 paramsWrapper, @"params",
 									 nil];
-	[documentWrapper release];
-	documentWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:wrappers];
 	
-	return documentWrapper;
+	return [[NSFileWrapper alloc] initDirectoryWithFileWrappers:wrappers];
 }
 
 // Loads file from an NSTextWrapper
 - (BOOL)readFromFileWrapper:(NSFileWrapper *)data ofType:(NSString *)typeName error:(NSError **)outError
 {
 	NSAssert([typeName isEqual:@"MacJags Document"], @"File must be of type Jags");
-	
-	if (documentWrapper != data) {
-		[documentWrapper release];
-		documentWrapper = [data retain];
-	}
 	
 	[modelText release];
 	[dataText release];
@@ -161,6 +131,11 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 // Checks the model definition
 - (IBAction)saveAndCheckModel:(id)sender
 {
+	valid = NO;
+	
+	[self saveDocument:sender];
+	[self textDidChange:[NSNotification notificationWithName:@"changed" object:sender]];
+	
 	NSURL *modelFile  = [self urlForKey:@"model"];
 	
 	NSError *error = nil;
@@ -175,18 +150,23 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 		message = [NSString stringWithFormat:@"Invalid model: %@", [error localizedDescription]];
 		[self setVariables:[NSArray array]];
 		[checkModelButton setState:NSOffState];
-		[checkModelButton setTitle:@"Check"];
+		[checkModelButton setTitle:@"Load"];
 	}
 	
 	[statusTextField setStringValue:message];
 	[self logStringValue:message];
 
 	[self postNotification:JagsDocument_DocumentActivateNotification];
+	
+	valid = YES;
 }
 
 // Runs the model with data and parameters
 - (IBAction)saveAndRun:(id)sender
 {
+	if (!valid)
+		[self saveAndCheckModel:sender];
+	
 	// Load the files
 	NSURL *dataFile   = [self urlForKey:@"data"];
 	NSURL *paramsFile = [self urlForKey:@"params"];
@@ -290,33 +270,29 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 }
 
 // Allows JagsDocument to act as delegate to the NSTextViews
-// Resets the "Check" buttons on edit
+// Resets the "Load" buttons on edit
 - (void)textDidChange:(NSNotification *)aNotification
 {
+	valid = NO;
+	
 	[checkModelButton setState:NSOffState];
-	[checkModelButton setTitle:@"Check"];
+	[checkModelButton setTitle:@"Load"];
 	[checkDataButton setState:NSOffState];
-	[checkDataButton setTitle:@"Check"];
+	[checkDataButton setTitle:@"Load"];
 	[checkParamsButton setState:NSOffState];
-	[checkParamsButton setTitle:@"Check"];
+	[checkParamsButton setTitle:@"Load"];
 }
 
 
 // Helper methods for dealing with reading and writing files
-
-- (NSString *)filenameForKey:(NSString *)key
-{
-	return [[[documentWrapper fileWrappers] objectForKey:key] filename];
-}
-
 - (NSURL *)urlForKey:(NSString *)key
 {
-	return [[self fileURL] URLByAppendingPathComponent:[self filenameForKey:key]];
+	return [[self fileURL] URLByAppendingPathComponent:key];
 }
 
 - (NSData *)dataForKey:(NSString *)key
 {
-	return [[[documentWrapper fileWrappers] objectForKey:key] regularFileContents];
+	return [[NSFileManager defaultManager] contentsAtPath:[[self urlForKey:key] path]];
 }
 
 - (NSString *)stringForKey:(NSString *)key
@@ -332,6 +308,14 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 		[[dataTextView textStorage] setAttributedString:dataText];
 	if (paramsTextView)
 		[[paramsTextView textStorage] setAttributedString:paramsText];
+	
+	// Set the default font to Monaco 9pt
+	NSMutableDictionary *attributes = [NSMutableDictionary 
+									   dictionaryWithObject:[NSFont fontWithName:@"Monaco" size:9]
+									   forKey:NSFontAttributeName];
+    [modelTextView setTypingAttributes:attributes];
+    [dataTextView setTypingAttributes:attributes];
+    [paramsTextView setTypingAttributes:attributes];
 }
 
 - (void)logStringValue:(NSString *)message
