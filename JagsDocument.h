@@ -10,8 +10,8 @@
 #import <Cocoa/Cocoa.h>
 #import "JagsConsole.h"
 
-extern NSString * const JagsDocument_DocumentDeactivateNotification;
-extern NSString * const JagsDocument_DocumentActivateNotification;
+extern NSString * const Jags_DocumentDeactivateNotification;
+extern NSString * const Jags_DocumentActivateNotification;
 
 @interface JagsDocument : NSDocument
 {

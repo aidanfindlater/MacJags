@@ -20,11 +20,11 @@
 
 		[center addObserver:self
 				   selector:@selector(documentActivateNotification:)
-					   name:JagsDocument_DocumentActivateNotification
+					   name:Jags_DocumentActivateNotification
 					 object:nil];
 		[center addObserver:self
 				   selector:@selector(documentDeactivateNotification:)
-					   name:JagsDocument_DocumentDeactivateNotification
+					   name:Jags_DocumentDeactivateNotification
 					 object:nil];
     }
     return self;

@@ -7,11 +7,12 @@
 //
 
 #import "JagsDocument.h"
+#import "JagsLogPanelController.h"
 #import "ResultsDocument.h"
 #import "RDataParser.h"
 
-NSString * const JagsDocument_DocumentDeactivateNotification = @"JagsDocumentDeactivated";
-NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActivated";
+NSString * const Jags_DocumentDeactivateNotification = @"JagsDocumentDeactivated";
+NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 
 @implementation JagsDocument
 @synthesize variables, monitors, burnInNumber, samplesNumber;
@@ -156,7 +157,7 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 	[statusTextField setStringValue:message];
 	[self logStringValue:message];
 
-	[self postNotification:JagsDocument_DocumentActivateNotification];
+	[self postNotification:Jags_DocumentActivateNotification];
 	
 	valid = YES;
 }
@@ -322,6 +323,9 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 {
 	[statusTextField setStringValue:message];
 	NSLog(@"%@", message);
+	[[NSNotificationCenter defaultCenter]
+	 postNotificationName: Jags_LogSentNotification
+	 object: message];
 }
 
 - (void)postNotification:(NSString *)notificationName
@@ -333,19 +337,19 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 
 - (void)windowDidBecomeMain:(NSNotification *)notification
 {
-    [self postNotification:JagsDocument_DocumentActivateNotification];
+    [self postNotification:Jags_DocumentActivateNotification];
 	
 }
 
 - (void)windowDidResignMain:(NSNotification *)notification
 {
-    [self postNotification:JagsDocument_DocumentDeactivateNotification];
+    [self postNotification:Jags_DocumentDeactivateNotification];
 }
 
 
 - (void)windowWillClose:(NSNotification *)notification
 {
-    [self postNotification:JagsDocument_DocumentDeactivateNotification];
+    [self postNotification:Jags_DocumentDeactivateNotification];
 }
 
 
