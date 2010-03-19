@@ -192,6 +192,12 @@ using std::list;
 	return varNames;
 }
 
+- (BOOL)adaptive
+{
+	return (BOOL)console->isAdapting();
+}
+
+
 - (void)clearModel
 {
 	console->clearModel();
