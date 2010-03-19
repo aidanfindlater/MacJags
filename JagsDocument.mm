@@ -117,6 +117,18 @@ NSString * const JagsDocument_DocumentActivateNotification = @"JagsDocumentActiv
 		return nil;
 	}
 	
+	NSFileWrapper *modelWrapper = [[NSFileWrapper alloc] initRegularFileWithContents:[NSData dataWithBytes:[[[modelTextView textStorage] string] UTF8String] length:[[[modelTextView textStorage] string] length]]];
+	NSFileWrapper *dataWrapper = [[NSFileWrapper alloc] initRegularFileWithContents:[NSData dataWithBytes:[[[dataTextView textStorage] string] UTF8String] length:[[[dataTextView textStorage] string] length]]];
+	NSFileWrapper *paramsWrapper = [[NSFileWrapper alloc] initRegularFileWithContents:[NSData dataWithBytes:[[[paramsTextView textStorage] string] UTF8String] length:[[[paramsTextView textStorage] string] length]]];
+	
+	NSMutableDictionary *wrappers = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+									 modelWrapper, @"model",
+									 dataWrapper, @"data",
+									 paramsWrapper, @"params",
+									 nil];
+	[documentWrapper release];
+	documentWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:wrappers];
+	
 	return documentWrapper;
 }
 
