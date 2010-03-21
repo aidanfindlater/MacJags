@@ -91,15 +91,37 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 // for the given array
 - (NSDictionary *)statisticsFor:(NSArray *)arr
 {
-	double m = 0.0;
-	double n = [arr count];
+	arr = [arr sortedArrayUsingSelector:@selector(compare:)];
 	
-	for (NSNumber *n in arr)
-		m += [n doubleValue];
+	int n = [arr count];
+	double sum = 0.0;
+	double sumSquares = 0.0;
+	
+	double median = 0.0;
+	if (n % 2 == 0)
+		median = ([[arr objectAtIndex:(NSUInteger)(n/2)] doubleValue] + [[arr objectAtIndex:(NSUInteger)((n-1)/2)] doubleValue]) / 2.0;
+	else
+		median = [[arr objectAtIndex:(NSUInteger)(n/2)] doubleValue];
+	
+	for (NSNumber *num in arr) {
+		sum += [num doubleValue];
+		sumSquares += [num doubleValue] * [num doubleValue];
+	}
+	
+	double mean = sum/(double)n;
+	double variance = (sumSquares - sum * mean) / ((double)n - 1);
+	double sd = sqrt(variance);
+	
+	double lowCI = mean - 1.959964 * sd;
+	double highCI = mean + 1.959964 * sd;
 	
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			[NSNumber numberWithDouble:(m/n)], @"mean",
-			[NSNumber numberWithDouble:n], @"N",
+			[NSNumber numberWithDouble:mean], @"mean",
+			[NSNumber numberWithInt:n], @"N",
+			[NSNumber numberWithDouble:median], @"median",
+			[NSNumber numberWithDouble:sd], @"sd",
+			[NSNumber numberWithDouble:lowCI], @"lowCI",
+			[NSNumber numberWithDouble:highCI], @"highCI",
 			nil];
 }
 
