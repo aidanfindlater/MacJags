@@ -43,7 +43,6 @@ NSString * const Jags_LogSentNotification = @"JagsLogSent";
 
 - (void)logSentNotification:(NSNotification *)notification
 {
-	NSLog(@"logged");
 	[log addObject:[notification object]];
 	[logTableView reloadData];
 }

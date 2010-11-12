@@ -147,19 +147,19 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 		[self setVariables:[console variableNames]];
 		[checkModelButton setState:NSOnState];
 		[checkModelButton setTitle:@"Valid"];
+		valid = YES;
 	} else {
 		message = [NSString stringWithFormat:@"Invalid model: %@", [error localizedDescription]];
 		[self setVariables:[NSArray array]];
 		[checkModelButton setState:NSOffState];
 		[checkModelButton setTitle:@"Load"];
+		valid = NO;
 	}
 	
 	[statusTextField setStringValue:message];
 	[self logStringValue:message];
 
 	[self postNotification:Jags_DocumentActivateNotification];
-	
-	valid = YES;
 }
 
 // Runs the model with data and parameters
