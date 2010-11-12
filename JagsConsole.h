@@ -8,11 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 
-#define id Id
-#import <JAGS/Console.h>
-//#import <R/R.h>
-//#import <R/../library/RInside/lib/x86_64/RInside.h>
-#undef id
+#ifdef __cplusplus
+class Console;
+#endif
+
+#ifdef __OBJC__
+#ifndef __cplusplus
+typedef void Console;
+#endif
+#endif
 
 @interface JagsConsole : NSObject {
 	Console *console;
@@ -45,7 +49,6 @@
 
 - (BOOL)dumpState:(NSDictionary **)dataTable
 		  rngName:(NSString **)name
-		 dumpType:(DumpType)type
 			chain:(NSUInteger)chainNumber;
 
 - (NSUInteger)iterationNumber;

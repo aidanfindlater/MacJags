@@ -11,10 +11,10 @@
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
 		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
-		8D15AC310486D014006FF6A4 /* JagsDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* JagsDocument.mm */; settings = {ATTRIBUTES = (); }; };
+		8D15AC310486D014006FF6A4 /* JagsDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* JagsDocument.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
-		DD05D4871147384C0078F3E0 /* JagsRunPanelController.mm in Sources */ = {isa = PBXBuildFile; fileRef = DD05D4861147384C0078F3E0 /* JagsRunPanelController.mm */; };
+		DD05D4871147384C0078F3E0 /* JagsRunPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD05D4861147384C0078F3E0 /* JagsRunPanelController.m */; };
 		DD084F5B127F3F9900299546 /* R.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD084F5A127F3F9900299546 /* R.framework */; };
 		DD576B6111532349008E7D5A /* JagsLogPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD576B6011532349008E7D5A /* JagsLogPanelController.m */; };
 		DD68657B11504EF800CD5917 /* ResultsDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD68657A11504EF700CD5917 /* ResultsDocument.xib */; };
@@ -30,7 +30,7 @@
 		1DDD58290DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/JagsDocument.xib; sourceTree = "<group>"; };
 		1DDD582B0DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		2564AD2C0F5327BB00F57823 /* MacJags_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacJags_Prefix.pch; sourceTree = "<group>"; };
-		2A37F4ACFDCFA73011CA2CEA /* JagsDocument.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JagsDocument.mm; sourceTree = "<group>"; };
+		2A37F4ACFDCFA73011CA2CEA /* JagsDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JagsDocument.m; sourceTree = "<group>"; };
 		2A37F4AEFDCFA73011CA2CEA /* JagsDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JagsDocument.h; sourceTree = "<group>"; };
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2A37F4BAFDCFA73011CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
@@ -39,7 +39,7 @@
 		8D15AC360486D014006FF6A4 /* MacJags-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MacJags-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* MacJags.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacJags.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD05D4851147384C0078F3E0 /* JagsRunPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JagsRunPanelController.h; sourceTree = "<group>"; };
-		DD05D4861147384C0078F3E0 /* JagsRunPanelController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JagsRunPanelController.mm; sourceTree = "<group>"; };
+		DD05D4861147384C0078F3E0 /* JagsRunPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JagsRunPanelController.m; sourceTree = "<group>"; };
 		DD084F5A127F3F9900299546 /* R.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = R.framework; path = Library/Frameworks/R.framework; sourceTree = SDKROOT; };
 		DD576B5F11532349008E7D5A /* JagsLogPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JagsLogPanelController.h; sourceTree = "<group>"; };
 		DD576B6011532349008E7D5A /* JagsLogPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JagsLogPanelController.m; sourceTree = "<group>"; };
@@ -109,13 +109,13 @@
 			children = (
 				DDB9DBE711455BEE00A5B9CF /* File Parsers */,
 				2A37F4AEFDCFA73011CA2CEA /* JagsDocument.h */,
-				2A37F4ACFDCFA73011CA2CEA /* JagsDocument.mm */,
+				2A37F4ACFDCFA73011CA2CEA /* JagsDocument.m */,
 				DDB9DB8D114554EA00A5B9CF /* JagsConsole.h */,
 				DDB9DB8E114554EA00A5B9CF /* JagsConsole.mm */,
 				DD68657E115050FC00CD5917 /* ResultsDocument.h */,
 				DD68657F115050FC00CD5917 /* ResultsDocument.m */,
 				DD05D4851147384C0078F3E0 /* JagsRunPanelController.h */,
-				DD05D4861147384C0078F3E0 /* JagsRunPanelController.mm */,
+				DD05D4861147384C0078F3E0 /* JagsRunPanelController.m */,
 				DD576B5F11532349008E7D5A /* JagsLogPanelController.h */,
 				DD576B6011532349008E7D5A /* JagsLogPanelController.m */,
 			);
@@ -235,11 +235,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D15AC310486D014006FF6A4 /* JagsDocument.mm in Sources */,
+				8D15AC310486D014006FF6A4 /* JagsDocument.m in Sources */,
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
 				DDB9DB8F114554EA00A5B9CF /* JagsConsole.mm in Sources */,
 				DDB9DBEA11455C0300A5B9CF /* RDataParser.m in Sources */,
-				DD05D4871147384C0078F3E0 /* JagsRunPanelController.mm in Sources */,
+				DD05D4871147384C0078F3E0 /* JagsRunPanelController.m in Sources */,
 				DD686580115050FC00CD5917 /* ResultsDocument.m in Sources */,
 				DD576B6111532349008E7D5A /* JagsLogPanelController.m in Sources */,
 			);

@@ -10,6 +10,7 @@
 #import <dlfcn.h>
 
 #define id Id
+#import <JAGS/Console.h>
 #import <JAGS/compiler/ParseTree.h>
 #import <JAGS/Module.h>
 #import <JAGS/model/BUGSModel.h>
@@ -152,13 +153,12 @@ using std::list;
 
 - (BOOL)dumpState:(NSDictionary **)dataTable
 		  rngName:(NSString **)name
-		 dumpType:(DumpType)type
 			chain:(NSUInteger)chainNumber
 {
 	map<string,SArray> c_dataTable;
 	string c_name;
 	
-	if (!console->dumpState(c_dataTable, c_name, type, chainNumber))
+	if (!console->dumpState(c_dataTable, c_name, DUMP_ALL, chainNumber))
 		return NO;
 	
 	NSMutableDictionary *newDataTable = [NSMutableDictionary dictionary];

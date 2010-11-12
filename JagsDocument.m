@@ -262,8 +262,11 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 	
 	NSError *err;
 	ResultsDocument *resDoc = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"MacJags Results" error:&err];
-	if (err)
+	if (resDoc == nil) {
 		NSLog(@"Couldn't make results window: %@", err);
+		return;
+	}
+	
 	[resDoc makeWindowControllers];
 	[resDoc showWindows];
 	[resDoc setResults:results];
