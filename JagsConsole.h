@@ -10,6 +10,8 @@
 
 #define id Id
 #import <JAGS/Console.h>
+//#import <R/R.h>
+//#import <R/../library/RInside/lib/x86_64/RInside.h>
 #undef id
 
 @interface JagsConsole : NSObject {
@@ -62,6 +64,6 @@
 + (void)loadDLLs;
 + (BOOL)loadModule:(NSString *)moduleName;
 + (BOOL)unloadModule:(NSString *)moduleName;
-+ (NSArray *)loadedModules;
++ (NSArray *)listModules;
 
 @end

@@ -214,15 +214,15 @@ using std::list;
 	return (BOOL)Console::unloadModule([moduleName UTF8String]);
 }
 
-+ (NSArray *)loadedModules
++ (NSArray *)listModules
 {
-	std::list<Module *> c_modules = Console::loadedModules();
+	std::vector<std::string> c_modules = Console::listModules();
 	NSMutableArray *modules = [[NSMutableArray alloc] init];
 	
-	list<Module *>::const_iterator p;
-    for (p = c_modules.begin(); p != c_modules.end(); ++p) {
+	std::vector<std::string>::const_iterator p;
+	for (p = c_modules.begin(); p != c_modules.end(); ++p) {
 		[modules addObject:
-		 [NSString stringWithUTF8String:(*p)->name().c_str()]];
+		 [NSString stringWithUTF8String:(*p).c_str()]];
 	}
 	
 	return modules;
@@ -234,7 +234,7 @@ static BOOL loadedDLLs;
 {
 	if (loadedDLLs) return;
 	
-	NSString *modulesPath = @"/usr/local/lib/JAGS/modules-2.0.0/";
+	NSString *modulesPath = @"/usr/local/lib/JAGS/modules-2.1.0/";
 	NSDirectoryEnumerator *modEnumerator = [[NSFileManager defaultManager]
 											enumeratorAtPath:modulesPath];
 	for (NSString *mod in modEnumerator) {
