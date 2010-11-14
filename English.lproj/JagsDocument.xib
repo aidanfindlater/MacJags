@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="5"/>
+			<integer value="100034"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -137,7 +137,7 @@
 																<int key="NSTCFlags">1</int>
 															</object>
 															<object class="NSTextViewSharedData" key="NSSharedData">
-																<int key="NSFlags">12263</int>
+																<int key="NSFlags">12259</int>
 																<int key="NSTextCheckingTypes">0</int>
 																<nil key="NSMarkedAttributes"/>
 																<object class="NSColor" key="NSBackgroundColor" id="526117601">
@@ -228,6 +228,7 @@
 													<int key="NSvFlags">-2147483392</int>
 													<string key="NSFrame">{{-100, -100}, {87, 18}}</string>
 													<reference key="NSSuperview" ref="805246321"/>
+													<bool key="NSEnabled">YES</bool>
 													<int key="NSsFlags">1</int>
 													<reference key="NSTarget" ref="805246321"/>
 													<string key="NSAction">_doScroller:</string>
@@ -238,7 +239,7 @@
 											<string key="NSFrameSize">{339, 536}</string>
 											<reference key="NSSuperview" ref="545468223"/>
 											<reference key="NSNextKeyView" ref="113652491"/>
-											<int key="NSsFlags">18</int>
+											<int key="NSsFlags">146</int>
 											<reference key="NSVScroller" ref="609155762"/>
 											<reference key="NSHScroller" ref="235949198"/>
 											<reference key="NSContentView" ref="113652491"/>
@@ -1217,9 +1218,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{303, 105}, {640, 578}}</string>
+					<string>{{330, 105}, {640, 578}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{303, 105}, {640, 578}}</string>
+					<string>{{330, 105}, {640, 578}}</string>
 					<integer value="1"/>
 					<string>{{201, 387}, {507, 413}}</string>
 					<integer value="1"/>

@@ -87,6 +87,11 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 {
     [super windowControllerDidLoadNib:aController];
 	
+	// Set the default font to Monaco 10pt
+	[modelTextView  setFont:[NSFont fontWithName:@"Monaco" size:10]];
+	[dataTextView   setFont:[NSFont fontWithName:@"Monaco" size:10]];
+	[paramsTextView setFont:[NSFont fontWithName:@"Monaco" size:10]];
+	
 	[self logStringValue:@"Document ready"];
 	[self reloadTextViews];
 }
@@ -312,14 +317,6 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 		[[dataTextView textStorage] setAttributedString:dataText];
 	if (paramsTextView)
 		[[paramsTextView textStorage] setAttributedString:paramsText];
-	
-	// Set the default font to Monaco 9pt
-	NSMutableDictionary *attributes = [NSMutableDictionary 
-									   dictionaryWithObject:[NSFont fontWithName:@"Monaco" size:9]
-									   forKey:NSFontAttributeName];
-    [modelTextView setTypingAttributes:attributes];
-    [dataTextView setTypingAttributes:attributes];
-    [paramsTextView setTypingAttributes:attributes];
 }
 
 - (void)logStringValue:(NSString *)message
