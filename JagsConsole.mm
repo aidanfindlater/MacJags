@@ -15,7 +15,6 @@
 #import <JAGS/Module.h>
 #import <JAGS/model/BUGSModel.h>
 #import <JAGS/model/Monitor.h>
-#import <JAGS/Console.h>
 #import <string>
 #import <sstream>
 #undef id
