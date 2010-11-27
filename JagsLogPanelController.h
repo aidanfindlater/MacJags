@@ -8,13 +8,19 @@
 
 #import <Cocoa/Cocoa.h>
 
-extern NSString * const Jags_LogSentNotification;
+extern NSString * const Jags_LogSentNotification; /**< Name of the notification that the log window responds to. */
 
+/**
+ * The JagsLogPanelController class manages the log panel.
+ *
+ * This windows responds to Jags_LogSentNotification notifications from
+ * other windows, appending the text to the common log.
+ */
 @interface JagsLogPanelController : NSObject {
 	IBOutlet NSPanel *logPanel;
 	IBOutlet NSTableView *logTableView;
 	
-	NSMutableArray *log;
+	NSMutableArray *log; /**< The array of strings that have been sent to the log window. */
 }
 
 @property (readonly) NSMutableArray *log;

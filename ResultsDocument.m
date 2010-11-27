@@ -28,6 +28,10 @@
 	[super dealloc];
 }
 
+/**
+ * Replace the dictionary of results
+ * @param	newResults	An NSDictionary of NSStrings of variable names mapped to NSArrays of samples
+ */
 - (void)setResults:(NSDictionary *)newResults
 {
 	[newResults retain];
@@ -57,6 +61,9 @@
     [super windowControllerDidLoadNib:aController];
 }
 
+/**
+ * Currently not implemented
+ */
 - (NSFileWrapper *)fileWrapperOfType:(NSString *)typeName error:(NSError **)outError
 {
 	return nil;
@@ -89,6 +96,15 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 // Returns a dictionary of mean, SD, median, etc.
 // for the given array
+/**
+ * Calculate summary statistics on an array of numbers
+ *
+ * Calculates the mean, standard deviation, median, and 95% confidence intervals.
+ *
+ * @param	arr		An NSArray of NSNumber objects with which to calculate statistics
+ * @return	An NSDictionary of the summary statistics. Keys include "mean", "N",
+ *			"median", "sd", "lowCI", and "highCI".
+ */
 - (NSDictionary *)statisticsFor:(NSArray *)arr
 {
 	arr = [arr sortedArrayUsingSelector:@selector(compare:)];

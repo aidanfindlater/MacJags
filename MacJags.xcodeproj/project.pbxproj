@@ -180,6 +180,7 @@
 				8D15AC2B0486D014006FF6A4 /* Resources */,
 				8D15AC300486D014006FF6A4 /* Sources */,
 				8D15AC330486D014006FF6A4 /* Frameworks */,
+				DD91409212A0D885001D5FF2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -196,6 +197,9 @@
 /* Begin PBXProject section */
 		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Aidan Findlater";
+			};
 			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "MacJags" */;
 			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;
@@ -229,6 +233,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DD91409212A0D885001D5FF2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#\n# Build the doxygen documentation for the project and load the docset into Xcode \n#\n# Created by Fred McCann on 03/16/2010.\n# Last updated 10/26/2010.\n# http://www.duckrowing.com\n#\n# Based on the build script provided by Apple:\n# http://developer.apple.com/tools/creatingdocsetswithdoxygen.html\n#\n# Set the variable $COMPANY_RDOMAIN_PREFIX equal to the reverse domain name of your comany\n# Example: com.duckrowing\n#\n\nDOXYGEN_PATH=\"/Applications/Doxygen.app/Contents/Resources/doxygen\"\nDOCSET_PATH=\"$SOURCE_ROOT/build/$PRODUCT_NAME.docset\"\n\nif [ ! -f \"$SOURCE_ROOT/Doxyfile\" ] ; then \n  echo \"Doxygen config file ($SOURCE_ROOT/Doxyfile) does not exist. Will continue without generating documentation.\"\n  exit 1\nfi\n\n#  Append the proper input/output directories and docset info to the config file.\n#  This works even though values are assigned higher up in the file. Easier than sed.\n\ncp \"$SOURCE_ROOT/Doxyfile\" \"$TEMP_ROOT/Doxyfile\"\n\necho \"INPUT             = \\\"$SOURCE_ROOT\\\"\" >> \"$TEMP_ROOT/Doxyfile\"\necho \"OUTPUT_DIRECTORY  = \\\"$DOCSET_PATH\\\"\" >> \"$TEMP_ROOT/Doxyfile\"\necho \"RECURSIVE         = YES\"              >> \"$TEMP_ROOT/Doxyfile\"\necho \"EXTRACT_ALL       = YES\"              >> \"$TEMP_ROOT/Doxyfile\"\necho \"JAVADOC_AUTOBRIEF = YES\"              >> \"$TEMP_ROOT/Doxyfile\"\necho \"GENERATE_LATEX    = NO\"               >> \"$TEMP_ROOT/Doxyfile\"\necho \"GENERATE_DOCSET   = YES\"              >> \"$TEMP_ROOT/Doxyfile\"\necho \"DOCSET_FEEDNAME   = $PRODUCT_NAME Documentation\"           >> \"$TEMP_ROOT/Doxyfile\"\necho \"DOCSET_BUNDLE_ID  = $COMPANY_RDOMAIN_PREFIX.$PRODUCT_NAME\" >> \"$TEMP_ROOT/Doxyfile\"\n\n#  Run doxygen on the updated config file.\n#  Note: doxygen creates a Makefile that does most of the heavy lifting.\n\n$DOXYGEN_PATH \"$TEMP_ROOT/Doxyfile\"\n\n#  make will invoke docsetutil. Take a look at the Makefile to see how this is done.\n\nmake -C \"$DOCSET_PATH/html\" install\n\n#  Construct a temporary applescript file to tell Xcode to load a docset.\n\nrm -f \"$TEMP_ROOT/loadDocSet.scpt\"\n\necho \"tell application \\\"Xcode\\\"\" >> \"$TEMP_ROOT/loadDocSet.scpt\"\necho \"load documentation set with path \\\"/Users/$USER/Library/Developer/Shared/Documentation/DocSets/$COMPANY_RDOMAIN_PREFIX.$PRODUCT_NAME.docset\\\"\" >> \"$TEMP_ROOT/loadDocSet.scpt\"\necho \"end tell\" >> \"$TEMP_ROOT/loadDocSet.scpt\"\n\n#  Run the load-docset applescript command.\nosascript \"$TEMP_ROOT/loadDocSet.scpt\"\n\nexit 0";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8D15AC300486D014006FF6A4 /* Sources */ = {
@@ -339,6 +359,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COMPANY_RDOMAIN_PREFIX = com.aidanfindlater;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;

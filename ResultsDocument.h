@@ -8,11 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
-
+/**
+ * The ResultsDocument class displays the summary statistics of monitored variables from a JAGS run.
+ */
 @interface ResultsDocument : NSDocument {
-	IBOutlet NSTableView *variableTableView;
-	NSDictionary *results;
-	NSDictionary *stats;
+	IBOutlet NSTableView *variableTableView;	/**< Table view of monitored variables statistics */
+	
+	NSDictionary *results;	/**< Dictionary of monitored variables and their samples */
+	NSDictionary *stats;	/**< Dictionary of monitored variables and their summary statistics */
 }
 
 - (void)setResults:(NSDictionary *)newResults;

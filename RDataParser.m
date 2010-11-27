@@ -8,9 +8,7 @@
 
 #import "RDataParser.h"
 
-
 @implementation RDataParser
-
 
 - (id)init
 {
@@ -37,6 +35,11 @@
 }
 
 
+/**
+ * Parses a string of R-formatted data
+ * @param	aString		The NSString to parse
+ * @return	An NSDictionary of variable names mapped to NSNumbers or NSArrays
+ */
 - (NSDictionary *)parseString:(NSString *)aString
 {
 	scanner = [[NSScanner alloc] initWithString:aString];
@@ -71,6 +74,11 @@
 	return results;	
 }
 
+/**
+ * Parses a file of R-formatted data
+ * @param	aURL		The NSURL to parse
+ * @return	An NSDictionary of variable names mapped to NSNumbers or NSArrays
+ */
 - (NSDictionary *)parseURL:(NSURL *)aURL
 {
 	return [self parseString:[NSString stringWithContentsOfURL:aURL encoding:NSUTF8StringEncoding error:nil]];

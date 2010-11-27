@@ -18,6 +18,9 @@ typedef void Console;
 #endif
 #endif
 
+/**
+ * The JagsConsole class is a thin wrapper for the JAGS Console class.
+ */
 @interface JagsConsole : NSObject {
 	Console *console;
 }

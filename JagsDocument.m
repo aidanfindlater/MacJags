@@ -65,6 +65,10 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 	[super dealloc];
 }
 
+/**
+ * Setter method for the NSArray of variables named in the model.
+ * @param	newVariables	The new NSArray of variable names
+ */
 - (void)setVariables:(NSArray *)newVariables
 {
 	if (variables != newVariables) {
@@ -96,7 +100,12 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 	[self reloadTextViews];
 }
 
-// Returns file as an NSTextWrapper
+/**
+ * Returns the MacJags file as an NSTextWrapper
+ * @param	typeName	The type of document to return as (must be "MacJags Document")
+ * @param	outError	If unsuccessful, a pointer to an error object
+ * @return	A new NSFileWrapper object that refers to the current document
+ */
 - (NSFileWrapper *)fileWrapperOfType:(NSString *)typeName error:(NSError **)outError
 {
 	NSAssert([typeName isEqual:@"MacJags Document"], @"File must be of type Jags");
@@ -114,7 +123,13 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 	return [[[NSFileWrapper alloc] initDirectoryWithFileWrappers:wrappers] autorelease];
 }
 
-// Loads file from an NSTextWrapper
+/**
+ * Loads a MacJags file from an NSTextWrapper
+ * @param	data		An NSFileWrapper to load
+ * @param	typeName	The type of file to load (must be "MacJags Document")
+ * @param	error		If unsuccessful, a pointer to an error object
+ * @return	TRUE on success, FALSE on failure
+ */
 - (BOOL)readFromFileWrapper:(NSFileWrapper *)data ofType:(NSString *)typeName error:(NSError **)outError
 {
 	NSAssert([typeName isEqual:@"MacJags Document"], @"File must be of type Jags");
@@ -134,7 +149,9 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
     return YES;
 }
 
-// Checks the model definition
+/**
+ * Saves the current file and checks the model definition
+ */
 - (IBAction)saveAndCheckModel:(id)sender
 {
 	valid = NO;
@@ -167,7 +184,9 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 	[self postNotification:Jags_DocumentActivateNotification];
 }
 
-// Runs the model with data and parameters
+/**
+ * Saves the current file, checks the model definition, and runs the model with data and parameters
+ */
 - (IBAction)saveAndRun:(id)sender
 {
 	if (!valid)
@@ -278,8 +297,10 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 	[resDoc retain];
 }
 
-// Allows JagsDocument to act as delegate to the NSTextViews
-// Resets the "Load" buttons on edit
+/**
+ * Allows JagsDocument to act as delegate to the NSTextViews, resetting the "Load" buttons on a change
+ * @param	aNotification	An NSNotification with information on the change
+ */
 - (void)textDidChange:(NSNotification *)aNotification
 {
 	valid = NO;
@@ -294,21 +315,37 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 
 
 // Helper methods for dealing with reading and writing files
+
+/**
+ * @param	key		The specific file to return (model, data, or param)
+ * @return	An NSURL referring to the requested file
+ */
 - (NSURL *)urlForKey:(NSString *)key
 {
 	return [[self fileURL] URLByAppendingPathComponent:key];
 }
 
+/**
+ * @param	key		The specific file to return (model, data, or param)
+ * @return	An NSData object referring to the requested file
+ */
 - (NSData *)dataForKey:(NSString *)key
 {
 	return [[NSFileManager defaultManager] contentsAtPath:[[self urlForKey:key] path]];
 }
 
+/**
+ * @param	key		The specific file to return (model, data, or param)
+ * @return	An NSString with the contents of the requested file
+ */
 - (NSString *)stringForKey:(NSString *)key
 {
 	return [[NSString alloc] initWithData:[self dataForKey:key] encoding:NSASCIIStringEncoding];
 }
 
+/**
+ * Reloads the text views from their NSAttributedStrings
+ */
 - (void)reloadTextViews
 {
 	if (modelTextView)
@@ -319,6 +356,10 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 		[[paramsTextView textStorage] setAttributedString:paramsText];
 }
 
+/**
+ * Sends a string to the log window
+ * @param	message		An NSString to append to the log window
+ */
 - (void)logStringValue:(NSString *)message
 {
 	[statusTextField setStringValue:message];
@@ -328,6 +369,10 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 	 object: message];
 }
 
+/**
+ * Helper method to post notifications to the defaultCenter
+ * @param	notificationName	The name of the notification to post
+ */
 - (void)postNotification:(NSString *)notificationName
 {
     [[NSNotificationCenter defaultCenter]

@@ -9,6 +9,12 @@
 #import <Cocoa/Cocoa.h>
 #import "JagsDocument.h"
 
+/**
+ * The JagsRunPanelController class manages the "run" panel.
+ *
+ * This panel includes the variable monitors and options that control
+ * the JAGS execution.
+ */
 @interface JagsRunPanelController : NSObject <NSTableViewDataSource> {
 	IBOutlet NSPanel *runPanel;
 	
