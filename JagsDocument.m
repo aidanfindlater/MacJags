@@ -111,7 +111,7 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 									 paramsWrapper, @"params",
 									 nil];
 	
-	return [[NSFileWrapper alloc] initDirectoryWithFileWrappers:wrappers];
+	return [[[NSFileWrapper alloc] initDirectoryWithFileWrappers:wrappers] autorelease];
 }
 
 // Loads file from an NSTextWrapper

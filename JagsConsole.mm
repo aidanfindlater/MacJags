@@ -137,7 +137,8 @@ using std::list;
 
 - (NSDictionary *)dumpMonitors
 {
-	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	
 	for (list<MonitorControl>::const_iterator p = console->model()->monitors().begin();
 		 p != console->model()->monitors().end(); ++p) {
 		vector<double> const &v = p->monitor()->dump().value();
@@ -147,7 +148,8 @@ using std::list;
 		}
 		[dict setObject:arr forKey:[NSString stringWithUTF8String:p->monitor()->name().c_str()]];
 	}
-	return dict;
+	
+	return [dict autorelease];
 }
 
 - (BOOL)dumpState:(NSDictionary **)dataTable
@@ -188,7 +190,7 @@ using std::list;
 		[varNames insertObject:nextVar atIndex:i];
 	}
 	
-	return varNames;
+	return [varNames autorelease];
 }
 
 - (BOOL)adaptive
@@ -224,7 +226,7 @@ using std::list;
 		 [NSString stringWithUTF8String:(*p).c_str()]];
 	}
 	
-	return modules;
+	return [modules autorelease];
 }
 
 // Get the pluggable modules ready for loading
