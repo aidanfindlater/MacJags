@@ -52,6 +52,7 @@ extern NSString * const Jags_DocumentActivateNotification;
 - (void)reloadTextViews;
 - (void)logStringValue:(NSString *)message;
 - (void)postNotification:(NSString *)notificationName;
+- (void)textDidChange:(NSNotification *)aNotification;
 
 // Methods for working with the NSFileWrapper
 - (NSURL *)urlForKey:(NSString *)key;
