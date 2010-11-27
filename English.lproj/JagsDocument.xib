@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="100021"/>
+			<integer value="5"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -33,7 +33,7 @@
 			<object class="NSWindowTemplate" id="275939982">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{133, -69}, {889, 717}}</string>
+				<string key="NSWindowRect">{{104, 36}, {889, 717}}</string>
 				<int key="NSWTFlags">1886912512</int>
 				<string key="NSWindowTitle">Window</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -696,7 +696,7 @@
 					<string key="NSFrameSize">{889, 717}</string>
 					<reference key="NSSuperview"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
 				<string key="NSMinSize">{94, 108}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<bool key="NSAutorecalculatesContentBorderThicknessMinY">NO</bool>
@@ -1217,9 +1217,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{92, 23}, {889, 717}}</string>
+					<string>{{104, 36}, {889, 717}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{92, 23}, {889, 717}}</string>
+					<string>{{104, 36}, {889, 717}}</string>
 					<integer value="1"/>
 					<string>{{201, 387}, {507, 413}}</string>
 					<integer value="1"/>
