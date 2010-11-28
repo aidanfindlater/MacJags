@@ -15,7 +15,7 @@ NSString * const Jags_DocumentDeactivateNotification = @"JagsDocumentDeactivated
 NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 
 @implementation JagsDocument
-@synthesize variables, monitors, burnInNumber, samplesNumber;
+@synthesize variables, monitors, numberOfChains, burnInNumber, samplesNumber;
 
 - (id)init
 {
@@ -43,8 +43,12 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 		modelText  = [[NSAttributedString alloc] init];
 		dataText   = [[NSAttributedString alloc] init];
 		paramsText = [[NSAttributedString alloc] init];
-		burnInNumber  = [[NSNumber alloc] init];
-		samplesNumber = [[NSNumber alloc] init];
+		
+		// Init the settings
+		numberOfChains	= 1;
+		burnInNumber	= 1000;
+		samplesNumber	= 10000;
+
 	}
     return self;
 }
@@ -59,8 +63,6 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 	
 	[variables release];
 	[monitors release];
-	[burnInNumber release];
-	[samplesNumber release];
 	
 	[super dealloc];
 }
@@ -230,7 +232,7 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 		[self logStringValue:@"Valid parameters."];
 	}
 	
-	if ([console compileWithData:data chainNumber:1 genData:YES]) {
+	if ([console compileWithData:data chainNumber:numberOfChains genData:YES]) {
 		[self logStringValue:@"Compiled model."];
 	} else {
 		[self logStringValue:@"Could not compile model."];
@@ -248,7 +250,7 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 	
 	
 	[self logStringValue:@"Running burn-in..."];
-	if ([console update:2000]) {
+	if ([console update:burnInNumber]) {
 		[self logStringValue:@"Burn-in complete."];
 	} else {
 		[self logStringValue:@"Could not run burn-in."];
@@ -268,7 +270,7 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 	
 	
 	[self logStringValue:@"Running model..."];
-	if ([console update:20000]) {
+	if ([console update:samplesNumber]) {
 		[self logStringValue:@"Model run complete."];
 	} else {
 		[self logStringValue:@"Could not run model."];

@@ -31,8 +31,10 @@ extern NSString * const Jags_DocumentActivateNotification;
 	
 	NSArray *variables;			/**< The names of the variables in the model	*/
 	NSMutableArray *monitors;	/**< Boolean flags of variables to monitor		*/
-	NSNumber *burnInNumber;		/**< Number of reps for burn-in					*/
-	NSNumber *samplesNumber;	/**< Number of reps for sampling				*/
+	
+	NSUInteger numberOfChains;	/**< The number of chains to use	*/
+	NSUInteger burnInNumber;	/**< Number of reps for burn-in		*/
+	NSUInteger samplesNumber;	/**< Number of reps for sampling	*/
 		
 	NSAttributedString *modelText;	/**< Text of the model file			*/
 	NSAttributedString *dataText;	/**< Text of the data file			*/
@@ -51,8 +53,10 @@ extern NSString * const Jags_DocumentActivateNotification;
 
 @property (retain,readwrite) NSArray *variables;
 @property (retain,readwrite) NSMutableArray *monitors;
-@property (retain,readwrite) NSNumber *burnInNumber;
-@property (retain,readwrite) NSNumber *samplesNumber;
+
+@property (readwrite) NSUInteger numberOfChains;
+@property (readwrite) NSUInteger burnInNumber;
+@property (readwrite) NSUInteger samplesNumber;
 
 // Saves then checks that the model is valid
 - (IBAction)saveAndCheckModel:(id)sender;

@@ -19,6 +19,7 @@
 	IBOutlet NSPanel *runPanel;
 	
 	IBOutlet NSTableView *variableTableView;
+	IBOutlet NSTextField *numberOfChainsTextField;
 	IBOutlet NSTextField *burnInTextField;
 	IBOutlet NSTextField *samplesTextField;
 	

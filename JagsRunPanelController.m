@@ -51,6 +51,10 @@
 {
     [self setDocument: [notification object]];
 	[variableTableView reloadData];
+	
+	[numberOfChainsTextField setIntegerValue:[document numberOfChains]];
+	[burnInTextField setIntegerValue:[document burnInNumber]];
+	[samplesTextField setIntegerValue:[document samplesNumber]];
 }
 
 - (void)documentDeactivateNotification:(NSNotification *)notification
@@ -89,6 +93,13 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		 replaceObjectAtIndex:rowIndex
 		 withObject:[NSNumber numberWithBool:[anObject boolValue]]];
 	}
+}
+
+- (void)controlTextDidChange:(NSNotification *)aNotification
+{
+	[document setNumberOfChains:[numberOfChainsTextField intValue]];
+	[document setBurnInNumber:[burnInTextField intValue]];
+	[document setSamplesNumber:[samplesTextField intValue]];
 }
 
 
