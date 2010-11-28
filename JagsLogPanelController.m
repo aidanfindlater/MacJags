@@ -45,6 +45,7 @@ NSString * const Jags_LogSentNotification = @"JagsLogSent";
 {
 	[log addObject:[notification object]];
 	[logTableView reloadData];
+	[logTableView scrollRowToVisible:[logTableView numberOfRows] - 1];
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView
