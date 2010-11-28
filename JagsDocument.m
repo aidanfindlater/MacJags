@@ -40,9 +40,9 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 		[self setVariables:[[NSArray alloc] init]];
 		
 		// Init the text editing-related stuff
-		modelText  = [[NSAttributedString alloc] init];
-		dataText   = [[NSAttributedString alloc] init];
-		paramsText = [[NSAttributedString alloc] init];
+		modelText  = [[NSAttributedString alloc] initWithString:@""];
+		dataText   = [[NSAttributedString alloc] initWithString:@""];
+		paramsText = [[NSAttributedString alloc] initWithString:@""];
 		
 		// Init the settings
 		numberOfChains	= 1;
@@ -93,13 +93,17 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 {
     [super windowControllerDidLoadNib:aController];
 	
+	// Connect the text views to the text storages
+	[[modelTextView textStorage] setAttributedString:modelText];
+	[[dataTextView textStorage] setAttributedString:dataText];
+	[[paramsTextView textStorage] setAttributedString:paramsText];
+	
 	// Set the default font to Monaco 10pt
 	[modelTextView  setFont:[NSFont fontWithName:@"Monaco" size:10]];
 	[dataTextView   setFont:[NSFont fontWithName:@"Monaco" size:10]];
 	[paramsTextView setFont:[NSFont fontWithName:@"Monaco" size:10]];
 	
 	[self logStringValue:@"Document ready"];
-	[self reloadTextViews];
 }
 
 /**
@@ -143,8 +147,6 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 	modelText  = [[NSAttributedString alloc] initWithString:[self stringForKey:@"model"] attributes:nil];
 	dataText   = [[NSAttributedString alloc] initWithString:[self stringForKey:@"data"] attributes:nil];
 	paramsText = [[NSAttributedString alloc] initWithString:[self stringForKey:@"params"] attributes:nil];
-	
-	[self reloadTextViews];
 	
 	[statusTextField setStringValue:@"Loaded"];
 
@@ -307,6 +309,10 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 {
 	valid = NO;
 	
+	modelText = [modelTextView textStorage];
+	dataText = [dataTextView textStorage];
+	paramsText = [paramsTextView textStorage];
+	
 	[checkModelButton setState:NSOffState];
 	[checkModelButton setTitle:@"Load"];
 	[checkDataButton setState:NSOffState];
@@ -343,19 +349,6 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 - (NSString *)stringForKey:(NSString *)key
 {
 	return [[NSString alloc] initWithData:[self dataForKey:key] encoding:NSASCIIStringEncoding];
-}
-
-/**
- * Reloads the text views from their NSAttributedStrings
- */
-- (void)reloadTextViews
-{
-	if (modelTextView)
-		[[modelTextView textStorage] setAttributedString:modelText];
-	if (dataTextView)
-		[[dataTextView textStorage] setAttributedString:dataText];
-	if (paramsTextView)
-		[[paramsTextView textStorage] setAttributedString:paramsText];
 }
 
 /**
