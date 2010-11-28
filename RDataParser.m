@@ -189,7 +189,7 @@
 		return nil;
 	
 	// Trim trailing 'L'
-	if ([[scanner string] characterAtIndex:[scanner scanLocation]] == 'L')
+	if (![scanner isAtEnd] && [[scanner string] characterAtIndex:[scanner scanLocation]] == 'L')
 		[scanner setScanLocation:[scanner scanLocation] + 1];
 	
 	return [NSNumber numberWithFloat:num];
