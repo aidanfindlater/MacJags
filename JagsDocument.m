@@ -190,6 +190,18 @@ NSString * const Jags_DocumentActivateNotification = @"JagsDocumentActivated";
 
 /**
  * Saves the current file, checks the model definition, and runs the model with data and parameters
+ * 
+ * This is equivalent to doing the following in JAGS:
+ *     MODEL IN modelFile
+ *     DATA IN dataFile
+ *     INITS IN paramsFile
+ *     COMPILE, nchains(numberOfChains)
+ *     INITIALIZE
+ *     UPDATE burnInNumber
+ *     MONITOR var1
+ *     MONTIRO var2
+ *     ...
+ *     UPDATE samplesNumber
  */
 - (IBAction)saveAndRun:(id)sender
 {
